@@ -27,9 +27,9 @@ class FacturaEncabezadoRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idFactura:Long):ResponseEntity<FacturaEncabezado>{
+    fun loadById(@PathVariable("id") idfactura:Long):ResponseEntity<FacturaEncabezado>{
         return try{
-            ResponseEntity(facturaEncabezadoBusiness!!.getFacturaEncabezadoById(idFactura),HttpStatus.OK)
+            ResponseEntity(facturaEncabezadoBusiness!!.getFacturaEncabezadoById(idfactura),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -38,13 +38,13 @@ class FacturaEncabezadoRestController {
         }
     }
 
-    @PostMapping("/addFacturaEncabezado")
-    fun insert(@RequestBody facturaEncabezado: FacturaEncabezado):ResponseEntity<Any>{
+    @PostMapping("/addfacturaencabezado")
+    fun insert(@RequestBody facturaencabezado: FacturaEncabezado):ResponseEntity<Any>{
         return try{
-            facturaEncabezadoBusiness!!.saveFacturaEncabezado(facturaEncabezado)
+            facturaEncabezadoBusiness!!.saveFacturaEncabezado(facturaencabezado)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_FACTURAENCABEZADO+"/"+facturaEncabezado.idFactura)
-            ResponseEntity(facturaEncabezado,responseHeader,HttpStatus.CREATED)
+            responseHeader.set("location",Constants.URL_BASE_FACTURAENCABEZADO+"/"+facturaencabezado.idfactura)
+            ResponseEntity(facturaencabezado,responseHeader,HttpStatus.CREATED)
         }catch (e:BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
             ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR)
@@ -52,9 +52,9 @@ class FacturaEncabezadoRestController {
     }
 
     @PutMapping("")
-    fun update(@RequestBody facturaEncabezado: FacturaEncabezado):ResponseEntity<Any>{
+    fun update(@RequestBody facturaencabezado: FacturaEncabezado):ResponseEntity<Any>{
         return try{
-            facturaEncabezadoBusiness!!.updateFacturaEncabezado(facturaEncabezado)
+            facturaEncabezadoBusiness!!.updateFacturaEncabezado(facturaencabezado)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -65,9 +65,9 @@ class FacturaEncabezadoRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idFactura:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idfactura:Long):ResponseEntity<Any>{
         return try{
-            facturaEncabezadoBusiness!!.removeFacturaEncabezado(idFactura)
+            facturaEncabezadoBusiness!!.removeFacturaEncabezado(idfactura)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

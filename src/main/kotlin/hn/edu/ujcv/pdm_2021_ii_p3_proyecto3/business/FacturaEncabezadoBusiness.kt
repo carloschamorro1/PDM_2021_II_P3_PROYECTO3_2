@@ -21,10 +21,10 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getFacturaEncabezadoById(idFactura: Long): FacturaEncabezado {
+    override fun getFacturaEncabezadoById(idfactura: Long): FacturaEncabezado {
         val opt:Optional<FacturaEncabezado>
         try{
-            opt = facturaEncabezadoRepository!!.findById(idFactura)
+            opt = facturaEncabezadoRepository!!.findById(idfactura)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -32,57 +32,57 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el encabezado de la factura $idFactura")
+            throw NotFoundException("No se encontro el encabezado de la factura $idfactura")
         }
         return opt.get()
     }
     @Throws(BusinessException::class)
-    override fun saveFacturaEncabezado(facturaEncabezado: FacturaEncabezado): FacturaEncabezado {
+    override fun saveFacturaEncabezado(facturaencabezado: FacturaEncabezado): FacturaEncabezado {
         try{
-            validarEspacios(facturaEncabezado)
-            validarLongitud(facturaEncabezado)
-            validarLongitudMaxima(facturaEncabezado)
-            return facturaEncabezadoRepository!!.save(facturaEncabezado)
+            validarEspacios(facturaencabezado)
+            validarLongitud(facturaencabezado)
+            validarLongitudMaxima(facturaencabezado)
+            return facturaEncabezadoRepository!!.save(facturaencabezado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeFacturaEncabezado(idFactura: Long) {
+    override fun removeFacturaEncabezado(idfactura: Long) {
         val opt:Optional<FacturaEncabezado>
         try{
-            opt = facturaEncabezadoRepository!!.findById(idFactura)
+            opt = facturaEncabezadoRepository!!.findById(idfactura)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el encabezado de la factura $idFactura")
+            throw NotFoundException("No se encontro el encabezado de la factura $idfactura")
         }
         else{
             try{
-                facturaEncabezadoRepository!!.deleteById(idFactura)
+                facturaEncabezadoRepository!!.deleteById(idfactura)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun updateFacturaEncabezado(facturaEncabezado: FacturaEncabezado): FacturaEncabezado {
+    override fun updateFacturaEncabezado(facturaencabezado: FacturaEncabezado): FacturaEncabezado {
         val opt:Optional<FacturaEncabezado>
         try{
-            opt = facturaEncabezadoRepository!!.findById(facturaEncabezado.idFactura)
+            opt = facturaEncabezadoRepository!!.findById(facturaencabezado.idfactura)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la factura ${facturaEncabezado.idFactura}")
+            throw NotFoundException("No se encontro la factura ${facturaencabezado.idfactura}")
         }
         else{
             try{
-                validarEspacios(facturaEncabezado)
-                validarLongitud(facturaEncabezado)
-                validarLongitudMaxima(facturaEncabezado)
-                return facturaEncabezadoRepository!!.save(facturaEncabezado)
+                validarEspacios(facturaencabezado)
+                validarLongitud(facturaencabezado)
+                validarLongitudMaxima(facturaencabezado)
+                return facturaEncabezadoRepository!!.save(facturaencabezado)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -92,52 +92,52 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
 
     // Comienzan las validaciones
     @Throws(BusinessException::class)
-    fun validarEspacios(facturaEncabezado: FacturaEncabezado){
-        if(facturaEncabezado.fechaEmisionFactura.isEmpty()){
+    fun validarEspacios(facturaencabezado: FacturaEncabezado){
+        if(facturaencabezado.fechaemisionfactura.isEmpty()){
             throw BusinessException("La fecha de emisión no debe estar vacía")
         }
-        if(facturaEncabezado.idCai.toString().isEmpty()){
+        if(facturaencabezado.idcai.toString().isEmpty()){
             throw BusinessException("El ID del CAI no debe estar vacío")
         }
-        if(facturaEncabezado.idSucursal.toString().isEmpty()){
+        if(facturaencabezado.idsucursal.toString().isEmpty()){
             throw BusinessException("El ID de la sucursal no debe estar vacío")
         }
-        if(facturaEncabezado.totalFactura.toString().isEmpty()){
+        if(facturaencabezado.totalfactura.toString().isEmpty()){
             throw BusinessException("El total de la factura no debe estar vacío")
         }
-        if(facturaEncabezado.idEmpleado.toString().isEmpty()){
+        if(facturaencabezado.idempleado.toString().isEmpty()){
             throw BusinessException("El ID del empleado no debe estar vacío")
         }
-        if(facturaEncabezado.idCaso.toString().isEmpty()){
+        if(facturaencabezado.idcaso.toString().isEmpty()){
             throw BusinessException("La direccion del cliente no debe estar vacía")
         }
     }
 
     @Throws(BusinessException::class)
-    fun validarLongitud(facturaEncabezado: FacturaEncabezado){
-        if(facturaEncabezado.fechaEmisionFactura.length != 10){
+    fun validarLongitud(facturaencabezado: FacturaEncabezado){
+        if(facturaencabezado.fechaemisionfactura.length != 10){
             throw BusinessException("La fecha no puede ser distinta de 10 caracteres")
         }
-        if(facturaEncabezado.totalFactura.toString().length < 3){
+        if(facturaencabezado.totalfactura.toString().length < 3){
             throw BusinessException("El total de la factura no puede ser menor a 3 dígitos")
         }
     }
 
     @Throws(BusinessException::class)
-    fun validarLongitudMaxima(facturaEncabezado: FacturaEncabezado){
-        if(facturaEncabezado.idCai.toString().length > 10){
+    fun validarLongitudMaxima(facturaencabezado: FacturaEncabezado){
+        if(facturaencabezado.idcai.toString().length > 10){
             throw BusinessException("El ID del CAI no puede ser mayor a 10 caracteres")
         }
-        if(facturaEncabezado.idSucursal.toString().length > 10){
+        if(facturaencabezado.idsucursal.toString().length > 10){
             throw BusinessException("El dni no puede ser mayor a 10 caracteress")
         }
-        if(facturaEncabezado.totalFactura.toString().length > 18){
+        if(facturaencabezado.totalfactura.toString().length > 18){
             throw BusinessException("El total de la factura no puede ser distinto a 18 dígitos")
         }
-        if(facturaEncabezado.idEmpleado.toString().length > 10){
+        if(facturaencabezado.idempleado.toString().length > 10){
             throw BusinessException("El ID del empleado no puede ser mayor a 10 caracteres")
         }
-        if(facturaEncabezado.idCaso.toString().length > 10){
+        if(facturaencabezado.idcaso.toString().length > 10){
             throw BusinessException("La ID del caso no puede ser mayor a 10 caracteres")
         }
     }

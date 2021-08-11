@@ -7,7 +7,7 @@ interface IJuzgadoBusiness {
     fun getJuzgado():List<Juzgado>
     fun getJuzgadoById(id:Long): Juzgado
     fun saveJuzgado(juzgado: Juzgado): Juzgado
-    fun removeJuzgado(idJuzgado: Long)
-    fun getJuzgadoByNombre(nombreJuzgado: String): Juzgado
+    fun removeJuzgado(idjuzgado: Long)
+    fun getJuzgadoByNombre(nombrejuzgado: String): Juzgado
     fun updateJuzgado(juzgado: Juzgado): Juzgado
 }

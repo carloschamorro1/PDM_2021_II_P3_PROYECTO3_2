@@ -3,10 +3,10 @@ package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model
 import javax.persistence.*
 
 @Entity
-@Table(name = "FacturaEncabezado")
-data class FacturaEncabezado(val fechaEmisionFactura: String, val idCai:Long, val idSucursal:Long,
-val totalFactura:Double, val idEmpleado:Long, val idCaso:Long) {
+@Table(name = "facturaencabezado")
+data class FacturaEncabezado(val fechaemisionfactura: String, val idcai:Long, val idsucursal:Long,
+                              val totalfactura:Double, val idempleado:Long, val idcaso:Long) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idFactura:Long=0
+    var idfactura:Long=0
 }

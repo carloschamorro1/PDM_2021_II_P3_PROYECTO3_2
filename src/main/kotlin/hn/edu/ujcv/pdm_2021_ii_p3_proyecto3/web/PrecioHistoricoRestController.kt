@@ -27,9 +27,9 @@ class PrecioHistoricoRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idPrecioHistorico:Long):ResponseEntity<PrecioHistorico>{
+    fun loadById(@PathVariable("id") idpreciohistorico:Long):ResponseEntity<PrecioHistorico>{
         return try{
-            ResponseEntity(precioHistoricoBusiness!!.getPrecioHistoricoById(idPrecioHistorico),HttpStatus.OK)
+            ResponseEntity(precioHistoricoBusiness!!.getPrecioHistoricoById(idpreciohistorico),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -38,13 +38,13 @@ class PrecioHistoricoRestController {
         }
     }
 
-    @PostMapping("/addPrecioHistorico")
-    fun insert(@RequestBody precioHistorico: PrecioHistorico):ResponseEntity<Any>{
+    @PostMapping("/addpreciohistorico")
+    fun insert(@RequestBody preciohistorico: PrecioHistorico):ResponseEntity<Any>{
         return try{
-            precioHistoricoBusiness!!.savePrecioHistorico(precioHistorico)
+            precioHistoricoBusiness!!.savePrecioHistorico(preciohistorico)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_PRECIOHISTORICO+"/"+precioHistorico.idPrecioHistorico)
-            ResponseEntity(precioHistorico,responseHeader,HttpStatus.CREATED)
+            responseHeader.set("location",Constants.URL_BASE_PRECIOHISTORICO+"/"+preciohistorico.idpreciohistorico)
+            ResponseEntity(preciohistorico,responseHeader,HttpStatus.CREATED)
         }catch (e:BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
             ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR)
@@ -52,9 +52,9 @@ class PrecioHistoricoRestController {
     }
 
     @PutMapping("")
-    fun update(@RequestBody precioHistorico: PrecioHistorico):ResponseEntity<Any>{
+    fun update(@RequestBody preciohistorico: PrecioHistorico):ResponseEntity<Any>{
         return try{
-            precioHistoricoBusiness!!.savePrecioHistorico(precioHistorico)
+            precioHistoricoBusiness!!.savePrecioHistorico(preciohistorico)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -65,9 +65,9 @@ class PrecioHistoricoRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idPrecioHistorico:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idpreciohistorico:Long):ResponseEntity<Any>{
         return try{
-            precioHistoricoBusiness!!.removePrecioHistorico(idPrecioHistorico)
+            precioHistoricoBusiness!!.removePrecioHistorico(idpreciohistorico)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface IndicioRepository:JpaRepository<Indicio,Long> {
-    fun findByIdCaso(idCaso:Long): Optional<Indicio>
+    fun findByIdCaso(idcaso:Long): Optional<Indicio>
 }

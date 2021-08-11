@@ -25,10 +25,10 @@ class IndicioBusiness :IIndicioBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getIndicioById(idIndicio: Long): Indicio {
+    override fun getIndicioById(idindicio: Long): Indicio {
         val opt: Optional<Indicio>
         try{
-            opt = indicioRepository!!.findById(idIndicio)
+            opt = indicioRepository!!.findById(idindicio)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -36,7 +36,7 @@ class IndicioBusiness :IIndicioBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el indicio: $idIndicio")
+            throw NotFoundException("No se encontro el indicio: $idindicio")
         }
         return opt.get()
     }
@@ -52,34 +52,34 @@ class IndicioBusiness :IIndicioBusiness {
         }
     }
 
-    override fun removeIndicio(idIndicio: Long) {
+    override fun removeIndicio(idindicio: Long) {
         val opt: Optional<Indicio>
         try{
-            opt = indicioRepository!!.findById(idIndicio)
+            opt = indicioRepository!!.findById(idindicio)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Indício $idIndicio")
+            throw NotFoundException("No se encontró el Indício $idindicio")
         }
         else{
             try{
-                indicioRepository!!.deleteById(idIndicio)
+                indicioRepository!!.deleteById(idindicio)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getIndicioByIdCaso(idCaso: Long): Indicio {
+    override fun getIndicioByIdCaso(idcaso: Long): Indicio {
         val opt: Optional<Indicio>
         try{
-            opt = indicioRepository!!.findByIdCaso(idCaso)
+            opt = indicioRepository!!.findByIdCaso(idcaso)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el IdCASO $idCaso")
+            throw NotFoundException("No se encontro el IdCASO $idcaso")
         }
         return opt.get()
     }
@@ -87,12 +87,12 @@ class IndicioBusiness :IIndicioBusiness {
     override fun updateIndicio(indicio: Indicio): Indicio {
         val opt: Optional<Indicio>
         try{
-            opt = indicioRepository!!.findById(indicio.idIndicio)
+            opt = indicioRepository!!.findById(indicio.idindicio)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Indicio ${indicio.idIndicio}")
+            throw NotFoundException("No se encontro el Indicio ${indicio.idindicio}")
         }
         else{
             try{
@@ -105,7 +105,7 @@ class IndicioBusiness :IIndicioBusiness {
     }
 
     fun validarEspacios(indicio: Indicio){
-        if(indicio.idCaso.toString().isEmpty()){
+        if(indicio.idcaso.toString().isEmpty()){
             throw BusinessException("El idCaso no puede ir vacio")
         }
 
@@ -114,10 +114,10 @@ class IndicioBusiness :IIndicioBusiness {
 
     @Throws(BusinessException::class)
     fun validarLongitud(indicio: Indicio){
-        if(indicio.idCaso.toString().length < 1){
+        if(indicio.idcaso.toString().length < 1){
             throw BusinessException("El idCaso no puede ser menor a 1 caracteres")
         }
-        if(indicio.descripcionIndicio.length < 6){
+        if(indicio.descripcionindicio.length < 6){
             throw BusinessException("la descripcion no puede ser menor a 6 caracteres")
         }
 

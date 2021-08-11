@@ -27,10 +27,10 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getPrecioHistoricoById(idPrecioHistorico: Long): PrecioHistorico {
+    override fun getPrecioHistoricoById(idpreciohistorico: Long): PrecioHistorico {
         val opt: Optional<PrecioHistorico>
         try{
-            opt = precioHistoricoRepository!!.findById(idPrecioHistorico)
+            opt = precioHistoricoRepository!!.findById(idpreciohistorico)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -38,39 +38,39 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el id del precio historico: $idPrecioHistorico")
+            throw NotFoundException("No se encontro el id del precio historico: $idpreciohistorico")
         }
         return opt.get()
     }
 
     @Throws(BusinessException::class)
-    override fun savePrecioHistorico(precioHistorico: PrecioHistorico): PrecioHistorico {
+    override fun savePrecioHistorico(preciohistorico: PrecioHistorico): PrecioHistorico {
         try{
-            validarEspacios(precioHistorico)
-            validarLongitud(precioHistorico)
-            validarLongitudMaxima(precioHistorico)
-            validarFecha(precioHistorico.fechaInicialPrecioHistorico)
-            validarFecha(precioHistorico.fechaFinalPrecioHistorico)
-            return precioHistoricoRepository!!.save(precioHistorico)
+            validarEspacios(preciohistorico)
+            validarLongitud(preciohistorico)
+            validarLongitudMaxima(preciohistorico)
+            validarFecha(preciohistorico.fechainicialpreciohistorico)
+            validarFecha(preciohistorico.fechafinalpreciohistorico)
+            return precioHistoricoRepository!!.save(preciohistorico)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removePrecioHistorico(idPrecioHistorico: Long) {
+    override fun removePrecioHistorico(idpreciohistorico: Long) {
         val opt: Optional<PrecioHistorico>
         try{
-            opt = precioHistoricoRepository!!.findById(idPrecioHistorico)
+            opt = precioHistoricoRepository!!.findById(idpreciohistorico)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el id del precio historico $idPrecioHistorico")
+            throw NotFoundException("No se encontró el id del precio historico $idpreciohistorico")
         }
         else{
             try{
-                precioHistoricoRepository!!.deleteById(idPrecioHistorico)
+                precioHistoricoRepository!!.deleteById(idpreciohistorico)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -78,24 +78,24 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun updatePrecioHistorico(precioHistorico: PrecioHistorico): PrecioHistorico {
+    override fun updatePrecioHistorico(preciohistorico: PrecioHistorico): PrecioHistorico {
         val opt: Optional<PrecioHistorico>
         try{
-            opt = precioHistoricoRepository!!.findById(precioHistorico.idPrecioHistorico)
+            opt = precioHistoricoRepository!!.findById(preciohistorico.idpreciohistorico)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el id del precio historico ${precioHistorico.idPrecioHistorico}")
+            throw NotFoundException("No se encontró el id del precio historico ${preciohistorico.idpreciohistorico}")
         }
         else{
             try{
-                validarEspacios(precioHistorico)
-                validarLongitud(precioHistorico)
-                validarLongitudMaxima(precioHistorico)
-                validarFecha(precioHistorico.fechaInicialPrecioHistorico)
-                validarFecha(precioHistorico.fechaFinalPrecioHistorico)
-                return precioHistoricoRepository!!.save(precioHistorico)
+                validarEspacios(preciohistorico)
+                validarLongitud(preciohistorico)
+                validarLongitudMaxima(preciohistorico)
+                validarFecha(preciohistorico.fechainicialpreciohistorico)
+                validarFecha(preciohistorico.fechafinalpreciohistorico)
+                return precioHistoricoRepository!!.save(preciohistorico)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -105,30 +105,30 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
 
     // Comienzan las validaciones
     @Throws(BusinessException::class)
-    fun validarEspacios(precioHistorico: PrecioHistorico){
-        if(precioHistorico.fechaInicialPrecioHistorico.isEmpty()){
+    fun validarEspacios(preciohistorico: PrecioHistorico){
+        if(preciohistorico.fechainicialpreciohistorico.isEmpty()){
             throw BusinessException("La fecha inicial no debe estar vacía")
         }
-        if(precioHistorico.fechaFinalPrecioHistorico.isEmpty()){
+        if(preciohistorico.fechafinalpreciohistorico.isEmpty()){
             throw BusinessException("La fecha final no debe estar vacía")
         }
-        if(precioHistorico.idServicio.toString().isEmpty()){
+        if(preciohistorico.idservicio.toString().isEmpty()){
             throw BusinessException("El ID del servicio no debe estar vacío")
         }
-        if(precioHistorico.precio.toString().isEmpty()){
+        if(preciohistorico.precio.toString().isEmpty()){
             throw BusinessException("El precio no debe estar vacío")
         }
     }
 
     @Throws(BusinessException::class)
-    fun validarLongitud(precioHistorico: PrecioHistorico){
-        if(precioHistorico.fechaInicialPrecioHistorico.length != 10){
+    fun validarLongitud(preciohistorico: PrecioHistorico){
+        if(preciohistorico.fechainicialpreciohistorico.length != 10){
             throw BusinessException("La fecha inicial no puede ser distinta a 8 dígitos")
         }
-        if(precioHistorico.fechaFinalPrecioHistorico.length != 10){
+        if(preciohistorico.fechafinalpreciohistorico.length != 10){
             throw BusinessException("La fecha final no puede ser distinta a 8 dígitos")
         }
-        if(precioHistorico.precio.toString().length < 3){
+        if(preciohistorico.precio.toString().length < 3){
             throw BusinessException("El precio no puede ser menor a 3 dígitos")
         }
     }

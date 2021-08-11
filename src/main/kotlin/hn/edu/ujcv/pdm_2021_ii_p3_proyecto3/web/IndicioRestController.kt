@@ -30,9 +30,9 @@ class IndicioRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id")idIndicio:Long): ResponseEntity<Indicio> {
+    fun loadById(@PathVariable("id")idindicio:Long): ResponseEntity<Indicio> {
         return try{
-            ResponseEntity(indicioBusiness!!.getIndicioById(idIndicio), HttpStatus.OK)
+            ResponseEntity(indicioBusiness!!.getIndicioById(idindicio), HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -53,12 +53,12 @@ class IndicioRestController {
         }
     }
 
-    @PostMapping("/addIndicio")
+    @PostMapping("/addindicio")
     fun insert(@RequestBody indicio: Indicio): ResponseEntity<Any> {
         return try{
             indicioBusiness!!.saveIndicio(indicio)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_JUZGADO+"/"+indicio.idIndicio)
+            responseHeader.set("location",Constants.URL_BASE_INDICIO+"/"+indicio.idindicio)
             ResponseEntity(indicio,responseHeader, HttpStatus.CREATED)
         }catch (e: BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
@@ -80,9 +80,9 @@ class IndicioRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idIndicio: Long): ResponseEntity<Any> {
+    fun delete(@PathVariable("id")idindicio: Long): ResponseEntity<Any> {
         return try{
-            indicioBusiness!!.removeIndicio(idIndicio)
+            indicioBusiness!!.removeIndicio(idindicio)
             ResponseEntity(HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

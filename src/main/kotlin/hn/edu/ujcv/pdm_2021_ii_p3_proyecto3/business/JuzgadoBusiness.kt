@@ -25,10 +25,10 @@ class JuzgadoBusiness:IJuzgadoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getJuzgadoById(idJuzgado: Long): Juzgado {
+    override fun getJuzgadoById(idjuzgado: Long): Juzgado {
         val opt: Optional<Juzgado>
         try{
-            opt = juzgadoRepository!!.findById(idJuzgado)
+            opt = juzgadoRepository!!.findById(idjuzgado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -36,7 +36,7 @@ class JuzgadoBusiness:IJuzgadoBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Juzgado $idJuzgado")
+            throw NotFoundException("No se encontró el Juzgado $idjuzgado")
         }
         return opt.get()
     }
@@ -53,34 +53,34 @@ class JuzgadoBusiness:IJuzgadoBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeJuzgado(idJuzgado: Long) {
+    override fun removeJuzgado(idjuzgado: Long) {
         val opt: Optional<Juzgado>
         try{
-            opt = juzgadoRepository!!.findById(idJuzgado)
+            opt = juzgadoRepository!!.findById(idjuzgado)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Juzgado : $idJuzgado")
+            throw NotFoundException("No se encontró el Juzgado : $idjuzgado")
         }
         else{
             try{
-                juzgadoRepository!!.deleteById(idJuzgado)
+                juzgadoRepository!!.deleteById(idjuzgado)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getJuzgadoByNombre(nombreJuzgado: String): Juzgado {
+    override fun getJuzgadoByNombre(nombrejuzgado: String): Juzgado {
         val opt: Optional<Juzgado>
         try{
-            opt = juzgadoRepository!!.findByNombre(nombreJuzgado)
+            opt = juzgadoRepository!!.findByNombre(nombrejuzgado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Juzgado $nombreJuzgado")
+            throw NotFoundException("No se encontro el Juzgado $nombrejuzgado")
         }
         return opt.get()
     }

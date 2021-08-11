@@ -26,9 +26,9 @@ class JuzgadoRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id")idJuzgado:Long): ResponseEntity<Juzgado> {
+    fun loadById(@PathVariable("id")idjuzgado:Long): ResponseEntity<Juzgado> {
         return try{
-            ResponseEntity(JuzgadoBusiness!!.getJuzgadoById(idJuzgado), HttpStatus.OK)
+            ResponseEntity(JuzgadoBusiness!!.getJuzgadoById(idjuzgado), HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -38,9 +38,9 @@ class JuzgadoRestController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    fun loadByNombre(@PathVariable("nombre") nombreJuzgado:String): ResponseEntity<Juzgado> {
+    fun loadByNombre(@PathVariable("nombre") nombrejuzgado:String): ResponseEntity<Juzgado> {
         return try{
-            ResponseEntity(JuzgadoBusiness!!.getJuzgadoByNombre(nombreJuzgado), HttpStatus.OK)
+            ResponseEntity(JuzgadoBusiness!!.getJuzgadoByNombre(nombrejuzgado), HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -49,7 +49,7 @@ class JuzgadoRestController {
         }
     }
 
-    @PostMapping("/addJuzgado")
+    @PostMapping("/addjuzgado")
     fun insert(@RequestBody juzgado: Juzgado): ResponseEntity<Any> {
         return try{
             JuzgadoBusiness!!.saveJuzgado(juzgado)
@@ -76,9 +76,9 @@ class JuzgadoRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idJuzgado: Long): ResponseEntity<Any> {
+    fun delete(@PathVariable("id")idjuzgado: Long): ResponseEntity<Any> {
         return try{
-            JuzgadoBusiness!!.removeJuzgado(idJuzgado)
+            JuzgadoBusiness!!.removeJuzgado(idjuzgado)
             ResponseEntity(HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
