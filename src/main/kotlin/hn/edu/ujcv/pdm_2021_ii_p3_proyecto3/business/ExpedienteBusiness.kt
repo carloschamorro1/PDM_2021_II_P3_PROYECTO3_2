@@ -22,10 +22,10 @@ class ExpedienteBusiness:IExpedienteBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getExpedienteById(idExpediente: Long): Expediente {
+    override fun getExpedienteById(idexpediente: Long): Expediente {
         val opt: Optional<Expediente>
         try{
-            opt = expedienteRepository!!.findById(idExpediente)
+            opt = expedienteRepository!!.findById(idexpediente)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -33,7 +33,7 @@ class ExpedienteBusiness:IExpedienteBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Expediente $idExpediente")
+            throw NotFoundException("No se encontro el Expediente $idexpediente")
         }
         return opt.get()
     }
@@ -49,19 +49,19 @@ class ExpedienteBusiness:IExpedienteBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeExpediente(idExpediente: Long) {
+    override fun removeExpediente(idexpediente: Long) {
         val opt: Optional<Expediente>
         try{
-            opt = expedienteRepository!!.findById(idExpediente)
+            opt = expedienteRepository!!.findById(idexpediente)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Expediente $idExpediente")
+            throw NotFoundException("No se encontró el Expediente $idexpediente")
         }
         else{
             try{
-                expedienteRepository!!.deleteById(idExpediente)
+                expedienteRepository!!.deleteById(idexpediente)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }

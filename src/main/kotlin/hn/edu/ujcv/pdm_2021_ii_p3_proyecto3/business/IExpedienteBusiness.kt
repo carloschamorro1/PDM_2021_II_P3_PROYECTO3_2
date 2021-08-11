@@ -4,8 +4,8 @@ import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Expediente
 
 interface IExpedienteBusiness {
     fun getExpediente():List<Expediente>
-    fun getExpedienteById(idExpediente:Long): Expediente
+    fun getExpedienteById(idexpediente:Long): Expediente
     fun saveExpediente(expediente: Expediente): Expediente
-    fun removeExpediente(idExpediente:Long)
+    fun removeExpediente(idexpediente:Long)
     fun updateExpediente(expediente: Expediente): Expediente
 }

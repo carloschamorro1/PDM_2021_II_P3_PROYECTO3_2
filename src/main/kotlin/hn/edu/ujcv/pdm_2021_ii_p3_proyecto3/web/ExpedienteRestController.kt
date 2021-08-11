@@ -54,9 +54,9 @@ class ExpedienteRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idExpediente:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idexpediente:Long):ResponseEntity<Any>{
         return try{
-            expedienteBusiness!!.removeExpediente(idExpediente)
+            expedienteBusiness!!.removeExpediente(idexpediente)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

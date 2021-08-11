@@ -22,10 +22,10 @@ class CobroBusiness: ICobroBusiness{
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getCobroById(idFactura: Long): Cobro {
+    override fun getCobroById(idfactura: Long): Cobro {
         val opt: Optional<Cobro>
         try{
-            opt = cobroRepository!!.findByIdFactura(idFactura)
+            opt = cobroRepository!!.findByIdFactura(idfactura)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -33,7 +33,7 @@ class CobroBusiness: ICobroBusiness{
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la factura $idFactura")
+            throw NotFoundException("No se encontro la factura $idfactura")
         }
         return opt.get()
     }
@@ -51,19 +51,19 @@ class CobroBusiness: ICobroBusiness{
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeCobro(idFactura: Long) {
+    override fun removeCobro(idfactura: Long) {
         val opt: Optional<Cobro>
         try{
-            opt = cobroRepository!!.findById(idFactura)
+            opt = cobroRepository!!.findById(idfactura)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró la factura $idFactura")
+            throw NotFoundException("No se encontró la factura $idfactura")
         }
         else{
             try{
-                cobroRepository!!.deleteById(idFactura)
+                cobroRepository!!.deleteById(idfactura)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -72,12 +72,12 @@ class CobroBusiness: ICobroBusiness{
     override fun updateCobro(cobro: Cobro): Cobro {
         val opt: Optional<Cobro>
         try{
-            opt = cobroRepository!!.findById(cobro.idFactura)
+            opt = cobroRepository!!.findById(cobro.idfactura)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la factura ${cobro.idFactura}")
+            throw NotFoundException("No se encontro la factura ${cobro.idfactura}")
         }
         else{
             try{
@@ -94,56 +94,56 @@ class CobroBusiness: ICobroBusiness{
     //VALIDACIONES
     @Throws(BusinessException::class)
     fun validarEspacios(cobro: Cobro){
-        if(cobro.fechaEmisionFactura.toString().isEmpty()){
+        if(cobro.fechaemisionfactura.toString().isEmpty()){
             throw BusinessException("La fecha no debe estar vacío")
         }
-        if(cobro.idCAI.toString().isEmpty()){
+        if(cobro.idcai.toString().isEmpty()){
             throw BusinessException("El id CAI no debe estar vacío")
         }
-        if(cobro.idSucursal.toString().isEmpty()){
+        if(cobro.idsucursal.toString().isEmpty()){
             throw BusinessException("El id Sucursal no debe estar vacío")
         }
-        if(cobro.totalFactura.toString().isEmpty()){
+        if(cobro.totalfactura.toString().isEmpty()){
             throw BusinessException("El total no debe estar vacío")
         }
-        if(cobro.idEmpleado.toString().isEmpty()){
+        if(cobro.idempleado.toString().isEmpty()){
             throw BusinessException("El id del empleado no debe estar vacío")
         }
-        if(cobro.idCaso.toString().isEmpty()){
+        if(cobro.idcaso.toString().isEmpty()){
             throw BusinessException("El id del caso no debe estar vacío")
         }
-        if(cobro.idDetalle.toString().isEmpty()){
+        if(cobro.iddetalle.toString().isEmpty()){
             throw BusinessException("El id detalle no debe estar vacío")
         }
-        if(cobro.idFactura.toString().isEmpty()){
+        if(cobro.idfactura.toString().isEmpty()){
             throw BusinessException("El id de la factura no debe estar vacía")
         }
-        if(cobro.cantidadFactura.toString().isEmpty()){
+        if(cobro.cantidadfactura.toString().isEmpty()){
             throw BusinessException("La cantidad de la factura no debe estar vacía")
         }
     }
     @Throws(BusinessException::class)
     fun validarLongitud(cobro: Cobro){
-        if(cobro.fechaEmisionFactura.toString().length <4 ){
+        if(cobro.fechaemisionfactura.toString().length <4 ){
             throw BusinessException("La fecha no puede ser menor a 4 caracteres")
         }
-        if(cobro.idCAI.toString().length<8){
+        if(cobro.idcai.toString().length<8){
             throw BusinessException("El id CAI no puede ser menor a 8 digitos")
         }
-        if(cobro.idSucursal.toString().length<8){
+        if(cobro.idsucursal.toString().length<8){
             throw BusinessException("El id de la sucursal no puede ser menor a 8 dígitos")
         }
-        if(cobro.idEmpleado.toString().length<8){
+        if(cobro.idempleado.toString().length<8){
             throw BusinessException("El id del empleado no puede ser menor a 8 dígitos")
         }
-        if(cobro.idCaso.toString().length<8){
+        if(cobro.idcaso.toString().length<8){
             throw BusinessException("El id del caso no puede ser menor a 8 dígitos")
         }
-        if(cobro.idDetalle.toString().length<8){
+        if(cobro.iddetalle.toString().length<8){
             throw BusinessException("El id del detalle no puede ser menor a 8 dígitos")
         }
 
-        if(cobro.idFactura.toString().length<8){
+        if(cobro.idfactura.toString().length<8){
             throw BusinessException("El id de la factura no puede ser menor a 8 dígitos")
         }
 

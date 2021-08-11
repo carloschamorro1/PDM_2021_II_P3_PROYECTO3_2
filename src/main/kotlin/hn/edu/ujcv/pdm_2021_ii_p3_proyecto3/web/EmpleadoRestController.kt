@@ -25,9 +25,9 @@ class EmpleadoRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idEmpleado:Long):ResponseEntity<Empleado>{
+    fun loadById(@PathVariable("id") idempleado:Long):ResponseEntity<Empleado>{
         return try{
-            ResponseEntity(empleadoBusiness!!.getEmpleadoById(idEmpleado),HttpStatus.OK)
+            ResponseEntity(empleadoBusiness!!.getEmpleadoById(idempleado),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -37,9 +37,9 @@ class EmpleadoRestController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    fun loadByNombre(@PathVariable("nombre") nombreEmpleado:String):ResponseEntity<Empleado>{
+    fun loadByNombre(@PathVariable("nombre") nombreempleado:String):ResponseEntity<Empleado>{
         return try{
-            ResponseEntity(empleadoBusiness!!.getEmpleadoByNombre(nombreEmpleado),HttpStatus.OK)
+            ResponseEntity(empleadoBusiness!!.getEmpleadoByNombre(nombreempleado),HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -75,9 +75,9 @@ class EmpleadoRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idEmpleado:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idempleado:Long):ResponseEntity<Any>{
         return try{
-            empleadoBusiness!!.removeEmpleado(idEmpleado)
+            empleadoBusiness!!.removeEmpleado(idempleado)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

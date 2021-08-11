@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name="empleado")//, catalog = "dbo")
-data class Empleado(val nombreempleado:String ="", val apellidoEmpleado:String="", val dniempleado:Long = 0, val telefonoempleado:Long = 0,
+data class Empleado(val nombreempleado:String ="", val apellidoempleado:String="", val dniempleado:Long = 0, val telefonoempleado:Long = 0,
                     val salarioempleado:Double = 0.0, val tipoempleado:String="", val nombreusuario:String="", val claveusuario:String = "") {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

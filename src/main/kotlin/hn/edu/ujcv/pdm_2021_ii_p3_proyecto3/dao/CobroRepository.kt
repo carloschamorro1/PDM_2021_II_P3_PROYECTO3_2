@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface CobroRepository : JpaRepository<Cobro, Long> {
-    fun findByIdFactura(idFactura:Long): Optional<Cobro>
+    fun findByIdFactura(idfactura:Long): Optional<Cobro>
 }//mar

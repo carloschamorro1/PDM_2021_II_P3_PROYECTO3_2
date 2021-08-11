@@ -30,10 +30,10 @@ class EmpleadoBusiness: IEmpleadoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getEmpleadoById(idEmpleado: Long): Empleado {
+    override fun getEmpleadoById(idempleado: Long): Empleado {
         val opt: Optional<Empleado>
         try{
-            opt = empleadoRepository!!.findById(idEmpleado)
+            opt = empleadoRepository!!.findById(idempleado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -41,7 +41,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el empleado $idEmpleado")
+            throw NotFoundException("No se encontro el empleado $idempleado")
         }
         return opt.get()
     }
@@ -63,34 +63,34 @@ class EmpleadoBusiness: IEmpleadoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeEmpleado(idEmpleado: Long) {
+    override fun removeEmpleado(idempleado: Long) {
         val opt: Optional<Empleado>
         try{
-            opt = empleadoRepository!!.findById(idEmpleado)
+            opt = empleadoRepository!!.findById(idempleado)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el empleado $idEmpleado")
+            throw NotFoundException("No se encontró el empleado $idempleado")
         }
         else{
             try{
-                empleadoRepository!!.deleteById(idEmpleado)
+                empleadoRepository!!.deleteById(idempleado)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getEmpleadoByNombre(nombreEmpleado: String): Empleado {
+    override fun getEmpleadoByNombre(nombreempleado: String): Empleado {
         val opt: Optional<Empleado>
         try{
-            opt = empleadoRepository!!.findBynombreempleado(nombreEmpleado)
+            opt = empleadoRepository!!.findBynombreempleado(nombreempleado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el empleado $nombreEmpleado")
+            throw NotFoundException("No se encontro el empleado $nombreempleado")
         }
         return opt.get()
     }
@@ -128,7 +128,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
         if(empleado.nombreempleado.isEmpty()){
             throw BusinessException("El nombre no debe estar vacío")
         }
-        if(empleado.apellidoEmpleado.isEmpty()){
+        if(empleado.apellidoempleado.isEmpty()){
             throw BusinessException("El apellido no debe estar vacío")
         }
         if(empleado.dniempleado.toString().isEmpty()){
@@ -156,7 +156,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
         if(empleado.nombreempleado.length > 40 ){
             throw BusinessException("El nombre no puede ser mayor a 40 caracteres")
         }
-        if(empleado.apellidoEmpleado.length > 40){
+        if(empleado.apellidoempleado.length > 40){
             throw BusinessException("El apellido no puede ser mayor a 40 caracteres")
         }
         if(empleado.dniempleado.toString().length != 15){
@@ -248,7 +248,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
         if(empleado.nombreempleado.length < 3){
             throw BusinessException("El nombre no puede ser menor a 3 caracteres")
         }
-        if(empleado.apellidoEmpleado.length < 3){
+        if(empleado.apellidoempleado.length < 3){
             throw BusinessException("El apellido no puede ser menor a 3 caracteres")
         }
         if(empleado.dniempleado.toString().length != 15){

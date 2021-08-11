@@ -4,12 +4,12 @@ import javax.persistence.*
 
 @Entity//m
 @Table(name="Cobro")
-class Cobro (val fechaEmisionFactura: Date, val idCAI:Long=0, val idSucursal:Long=0, val totalFactura:Float= 0F,
-             val idEmpleado:Long=0, val idCaso:Long=0, val idDetalle:Long=0, val idServicio:Long=0, val cantidadFactura:Long=0){
+class Cobro (val fechaemisionfactura: Date, val idcai:Long=0, val idsucursal:Long=0, val totalfactura:Float= 0F,
+             val idempleado:Long=0, val idcaso:Long=0, val iddetalle:Long=0, val idservicio:Long=0, val cantidadfactura:Long=0){
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idFactura:Long=0
+    var idfactura:Long=0
 }
 /*
 factura encabezado

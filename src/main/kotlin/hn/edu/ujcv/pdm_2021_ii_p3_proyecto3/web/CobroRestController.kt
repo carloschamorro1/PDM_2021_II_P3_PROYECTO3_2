@@ -29,9 +29,9 @@ class CobroRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idFactura:Long):ResponseEntity<Cobro>{
+    fun loadById(@PathVariable("id") idfactura:Long):ResponseEntity<Cobro>{
         return try{
-            ResponseEntity(cobroBusiness!!.getCobroById(idFactura),HttpStatus.OK)
+            ResponseEntity(cobroBusiness!!.getCobroById(idfactura),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -40,12 +40,12 @@ class CobroRestController {
         }
     }
 
-    @PostMapping("/addCobro")
+    @PostMapping("/addcobro")
     fun insert(@RequestBody cobro: Cobro):ResponseEntity<Any>{
         return try{
             cobroBusiness!!.saveCobro(cobro)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_COBRO+"/"+cobro.idFactura)
+            responseHeader.set("location",Constants.URL_BASE_COBRO+"/"+cobro.idfactura)
             ResponseEntity(cobro,responseHeader,HttpStatus.CREATED)
         }catch (e:BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
@@ -67,9 +67,9 @@ class CobroRestController {
     }
 //m
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idFactura:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idfactura:Long):ResponseEntity<Any>{
         return try{
-            cobroBusiness!!.removeCobro(idFactura)
+            cobroBusiness!!.removeCobro(idfactura)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
