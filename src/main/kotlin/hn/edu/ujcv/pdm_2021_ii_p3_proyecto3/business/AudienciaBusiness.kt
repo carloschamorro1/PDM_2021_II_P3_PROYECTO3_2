@@ -24,10 +24,10 @@ class AudienciaBusiness: IAudienciaBusiness {
 
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getAudienciaById(idCaso: Long): Audiencia{
+    override fun getAudienciaById(idcaso: Long): Audiencia{
         val opt: Optional<Audiencia>
         try{
-            opt = audienciaRepository!!.findById(idCaso)
+            opt = audienciaRepository!!.findById(idcaso)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -35,7 +35,7 @@ class AudienciaBusiness: IAudienciaBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la audiencia $idCaso")
+            throw NotFoundException("No se encontro la audiencia $idcaso")
         }
         return opt.get()
     }
@@ -54,34 +54,34 @@ class AudienciaBusiness: IAudienciaBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeAudiencia(idCaso: Long) {
+    override fun removeAudiencia(idcaso: Long) {
         val opt: Optional<Audiencia>
         try{
-            opt = audienciaRepository!!.findById(idCaso)
+            opt = audienciaRepository!!.findById(idcaso)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró la audiencia $idCaso")
+            throw NotFoundException("No se encontró la audiencia $idcaso")
         }
         else{
             try{
-                audienciaRepository!!.deleteById(idCaso)
+                audienciaRepository!!.deleteById(idcaso)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getAudienciaByidCaso(idCaso: Long): Audiencia {
+    override fun getAudienciaByidCaso(idcaso: Long): Audiencia {
         val opt: Optional<Audiencia>
         try{
-            opt = audienciaRepository!!.findByidcaso(idCaso)
+            opt = audienciaRepository!!.findByidcaso(idcaso)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la audiencia$idCaso")
+            throw NotFoundException("No se encontro la audiencia$idcaso")
         }
         return opt.get()
     }

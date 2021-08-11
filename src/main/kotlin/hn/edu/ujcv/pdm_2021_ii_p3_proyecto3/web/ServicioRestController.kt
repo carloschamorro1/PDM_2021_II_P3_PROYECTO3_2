@@ -28,9 +28,9 @@ class ServicioRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id")idServicio:Long): ResponseEntity<Servicio> {
+    fun loadById(@PathVariable("id")idservicio:Long): ResponseEntity<Servicio> {
         return try{
-            ResponseEntity(servicioBusiness!!.getServicioById(idServicio), HttpStatus.OK)
+            ResponseEntity(servicioBusiness!!.getServicioById(idservicio), HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -40,9 +40,9 @@ class ServicioRestController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    fun loadByNombre(@PathVariable("nombre") nombreJuzgado:String): ResponseEntity<Servicio> {
+    fun loadByNombre(@PathVariable("nombre") nombrejuzgado:String): ResponseEntity<Servicio> {
         return try{
-            ResponseEntity(servicioBusiness!!.getServicioByNombre(nombreJuzgado), HttpStatus.OK)
+            ResponseEntity(servicioBusiness!!.getServicioByNombre(nombrejuzgado), HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -56,7 +56,7 @@ class ServicioRestController {
         return try{
             servicioBusiness!!.saveServicio(servicio)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location", Constants.URL_BASE_SERVICIO+"/"+servicio.idServicio)
+            responseHeader.set("location", Constants.URL_BASE_SERVICIO+"/"+servicio.idservicio)
             ResponseEntity(servicio,responseHeader, HttpStatus.CREATED)
         }catch (e: BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
@@ -78,9 +78,9 @@ class ServicioRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idServicio: Long): ResponseEntity<Any> {
+    fun delete(@PathVariable("id")idservicio: Long): ResponseEntity<Any> {
         return try{
-            servicioBusiness!!.removeServicio(idServicio)
+            servicioBusiness!!.removeServicio(idservicio)
             ResponseEntity(HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

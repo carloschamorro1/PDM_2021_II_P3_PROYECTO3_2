@@ -1,9 +1,7 @@
 package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.web
 
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.business.IEmpleadoBusiness
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.business.ISucursalBusiness
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Empleado
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Sucursal
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.utils.Constants
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.utils.RestApiError
@@ -29,9 +27,9 @@ class SucursalRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idSucursal:Long):ResponseEntity<Sucursal>{
+    fun loadById(@PathVariable("id") idsucursal:Long):ResponseEntity<Sucursal>{
         return try{
-            ResponseEntity(sucursalBusiness!!.getSucursalById(idSucursal),HttpStatus.OK)
+            ResponseEntity(sucursalBusiness!!.getSucursalById(idsucursal),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -41,9 +39,9 @@ class SucursalRestController {
     }
 
     @GetMapping("/nombre/{nombre}")
-    fun loadByNombre(@PathVariable("nombre") nombreSucursal:String):ResponseEntity<Sucursal>{
+    fun loadByNombre(@PathVariable("nombre") nombresucursal:String):ResponseEntity<Sucursal>{
         return try{
-            ResponseEntity(sucursalBusiness!!.getSucursalByNombre(nombreSucursal),HttpStatus.OK)
+            ResponseEntity(sucursalBusiness!!.getSucursalByNombre(nombresucursal),HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -51,12 +49,12 @@ class SucursalRestController {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
-    @PostMapping("/addSucursal")
+    @PostMapping("/addsucursal")
     fun insert(@RequestBody sucursal: Sucursal):ResponseEntity<Any>{
         return try{
             sucursalBusiness!!.saveSucursal(sucursal)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_SUCURSAL+"/"+sucursal.idSucursal)
+            responseHeader.set("location",Constants.URL_BASE_SUCURSAL+"/"+sucursal.idsucursal)
             ResponseEntity(sucursal,responseHeader,HttpStatus.CREATED)
         }catch (e:BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
@@ -78,9 +76,9 @@ class SucursalRestController {
     }
 //
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idSucursal:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idsucursal:Long):ResponseEntity<Any>{
         return try{
-            sucursalBusiness!!.removeSucursal(idSucursal)
+            sucursalBusiness!!.removeSucursal(idsucursal)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

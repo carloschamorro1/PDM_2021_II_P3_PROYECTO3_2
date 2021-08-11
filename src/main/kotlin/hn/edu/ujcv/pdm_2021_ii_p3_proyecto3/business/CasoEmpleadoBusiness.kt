@@ -24,10 +24,10 @@ class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
 
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getCasoEmpleadoById(idCasoEmpleado: Long): CasoEmpleado {
+    override fun getCasoEmpleadoById(idcasoempleado: Long): CasoEmpleado {
         val opt: Optional<CasoEmpleado>
         try{
-            opt = casoEmpleadoRepository!!.findById(idCasoEmpleado)
+            opt = casoEmpleadoRepository!!.findById(idcasoempleado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -35,57 +35,57 @@ class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el caso empleado $idCasoEmpleado")
+            throw NotFoundException("No se encontro el caso empleado $idcasoempleado")
         }
         return opt.get()
     }
 
     @Throws(BusinessException::class)
-    override fun saveCasoEmpleado(casoEmpleado: CasoEmpleado): CasoEmpleado {
+    override fun saveCasoEmpleado(casoempleado: CasoEmpleado): CasoEmpleado {
         try{
-            validarEspacios(casoEmpleado)
-            validarLongitud(casoEmpleado)
+            validarEspacios(casoempleado)
+            validarLongitud(casoempleado)
 
-            return casoEmpleadoRepository!!.save(casoEmpleado)
+            return casoEmpleadoRepository!!.save(casoempleado)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeCasoEmpleado(idCasoEmpleado: Long) {
+    override fun removeCasoEmpleado(idcasoempleado: Long) {
         val opt: Optional<CasoEmpleado>
         try{
-            opt = casoEmpleadoRepository!!.findById(idCasoEmpleado)
+            opt = casoEmpleadoRepository!!.findById(idcasoempleado)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el caso empleado $idCasoEmpleado")
+            throw NotFoundException("No se encontró el caso empleado $idcasoempleado")
         }
         else{
             try{
-                casoEmpleadoRepository!!.deleteById(idCasoEmpleado)
+                casoEmpleadoRepository!!.deleteById(idcasoempleado)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun updateCasoEmpleado(casoEmpleado: CasoEmpleado): CasoEmpleado {
+    override fun updateCasoEmpleado(casoempleado: CasoEmpleado): CasoEmpleado {
         val opt: Optional<CasoEmpleado>
         try{
-            opt = casoEmpleadoRepository!!.findById(casoEmpleado.idcasoempleado)
+            opt = casoEmpleadoRepository!!.findById(casoempleado.idcasoempleado)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el caso empleado ${casoEmpleado.idcasoempleado}")
+            throw NotFoundException("No se encontro el caso empleado ${casoempleado.idcasoempleado}")
         }
         else{
             try{
-                validarEspacios(casoEmpleado)
-                validarLongitud(casoEmpleado)
-                return casoEmpleadoRepository!!.save(casoEmpleado)
+                validarEspacios(casoempleado)
+                validarLongitud(casoempleado)
+                return casoEmpleadoRepository!!.save(casoempleado)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -94,58 +94,46 @@ class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
     }
 //VALIDACIONES
 @Throws(BusinessException::class)
-fun validarEspacios(casoEmpleado: CasoEmpleado){
-    if(casoEmpleado.idcasoempleado.toString().isEmpty()){
+fun validarEspacios(casoempleado: CasoEmpleado){
+    if(casoempleado.idcasoempleado.toString().isEmpty()){
         throw BusinessException("El id del caso empleado no debe estar vacío")
     }
-    if(casoEmpleado.idempleado.toString().isEmpty()){
+    if(casoempleado.idempleado.toString().isEmpty()){
         throw BusinessException("El id del empleado no debe estar vacío")
     }
-    if(casoEmpleado.idcaso.toString().isEmpty()){
+    if(casoempleado.idcaso.toString().isEmpty()){
         throw BusinessException("El id del caso no debe estar vacío")
     }
-    if(casoEmpleado.fechainiciotrabajoencaso.toString().isEmpty()){
+    if(casoempleado.fechainiciotrabajoencaso.toString().isEmpty()){
         throw BusinessException("La fecha de inicio no debe estar vacía")
     }
-    if(casoEmpleado.fechafinaltrabajoencaso.toString().isEmpty()){
+    if(casoempleado.fechafinaltrabajoencaso.toString().isEmpty()){
         throw BusinessException("La fecha final no debe estar vacío")
     }
-    if(casoEmpleado.descripcioncasoempleado.isEmpty()){
+    if(casoempleado.descripcioncasoempleado.isEmpty()){
         throw BusinessException("La descripcion no debe estar vacío")
     }
 
 }
-
-    /*
-[idCasoEmpleado] [numeric](18, 0) NOT NULL,
-[idEmpleado] [numeric](18, 0) NOT NULL,
-[idCaso] [numeric](18, 0) NOT NULL,
-[fechaInicioTrabajoEnCaso] [date] NOT NULL,
-[fechaFinalTrabajoEnCaso] [date] NOT NULL,
-[descripcionCasoEmpleado] [varchar](80) NOT NUL
-*/
     @Throws(BusinessException::class)
-    fun validarLongitud(casoEmpleado: CasoEmpleado){
-        if(casoEmpleado.idcasoempleado.toString().length<8 ){
+    fun validarLongitud(casoempleado: CasoEmpleado){
+        if(casoempleado.idcasoempleado.toString().length<8 ){
             throw BusinessException("El id del caso empleado no puede ser menor a 8 digitos")
         }
-        if(casoEmpleado.idempleado.toString().length<8){
+        if(casoempleado.idempleado.toString().length<8){
             throw BusinessException("El id del empleado no puede ser menor a 8 digitos")
         }
-        if(casoEmpleado.idcaso.toString().length<8){
+        if(casoempleado.idcaso.toString().length<8){
             throw BusinessException("El id del caso no puede ser menor a 8 dígitos")
         }
-        if(casoEmpleado.fechainiciotrabajoencaso.toString().length<6){
+        if(casoempleado.fechainiciotrabajoencaso.toString().length<6){
             throw BusinessException("La fecha de inicio no puede ser menor a 6 dígitos")
         }
-        if(casoEmpleado.fechafinaltrabajoencaso.toString().length<6){
+        if(casoempleado.fechafinaltrabajoencaso.toString().length<6){
             throw BusinessException("La fecha final no puede ser menor a 6 dígitos")
         }
-        if(casoEmpleado.descripcioncasoempleado.length>100){
+        if(casoempleado.descripcioncasoempleado.length>100){
             throw BusinessException("La descripcion no puede ser mayor a 100 caracteres")
         }
-
-
     }
 }
-//

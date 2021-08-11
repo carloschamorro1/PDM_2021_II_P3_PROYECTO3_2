@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface SucursalRepository: JpaRepository<Sucursal, Long> {
-    fun findByNombreSucursal(nombreSucursal:String): Optional<Sucursal>
+    fun findByNombreSucursal(nombresucursal:String): Optional<Sucursal>
 
 }

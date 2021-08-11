@@ -3,11 +3,11 @@ package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model
 import javax.persistence.*
 
 @Entity
-@Table(name = "Sucursal")
-data class Sucursal( val nombreSucursal:String ="", val direccionSucursal:String="", val telefonoSucursal:Long=0,
-val emailSucursal:String="") {
+@Table(name = "sucursal")
+data class Sucursal( val nombresucursal:String ="", val direccionsucursal:String="", val telefonosucursal:Long=0,
+val emailsucursal:String="") {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idSucursal:Long=0
+    var idsucursal:Long=0
 
 }

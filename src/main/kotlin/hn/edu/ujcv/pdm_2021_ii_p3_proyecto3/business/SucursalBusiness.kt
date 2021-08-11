@@ -25,13 +25,12 @@ class SucursalBusiness: ISucursalBusiness {
         }
     }
 
-//marce
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getSucursalById(idSucursal: Long): Sucursal {
+    override fun getSucursalById(idsucursal: Long): Sucursal {
         val opt: Optional<Sucursal>
         try{
-            opt = sucursalRepository!!.findById(idSucursal)
+            opt = sucursalRepository!!.findById(idsucursal)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -39,7 +38,7 @@ class SucursalBusiness: ISucursalBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la sucursal $idSucursal")
+            throw NotFoundException("No se encontro la sucursal $idsucursal")
         }
         return opt.get()
     }
@@ -56,34 +55,34 @@ class SucursalBusiness: ISucursalBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeSucursal(idSucursal: Long) {
+    override fun removeSucursal(idsucursal: Long) {
         val opt: Optional<Sucursal>
         try{
-            opt = sucursalRepository!!.findById(idSucursal)
+            opt = sucursalRepository!!.findById(idsucursal)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró la sucursal $idSucursal")
+            throw NotFoundException("No se encontró la sucursal $idsucursal")
         }
         else{
             try{
-                sucursalRepository!!.deleteById(idSucursal)
+                sucursalRepository!!.deleteById(idsucursal)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getSucursalByNombre(nombreSucursal: String): Sucursal {
+    override fun getSucursalByNombre(nombresucursal: String): Sucursal {
         val opt: Optional<Sucursal>
         try{
-            opt = sucursalRepository!!.findByNombreSucursal(nombreSucursal)
+            opt = sucursalRepository!!.findByNombreSucursal(nombresucursal)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la sucursal $nombreSucursal")
+            throw NotFoundException("No se encontro la sucursal $nombresucursal")
         }
         return opt.get()
     }
@@ -91,12 +90,12 @@ class SucursalBusiness: ISucursalBusiness {
     override fun updateSucursal(sucursal: Sucursal): Sucursal{
         val opt: Optional<Sucursal>
         try{
-            opt = sucursalRepository!!.findById(sucursal.idSucursal)
+            opt = sucursalRepository!!.findById(sucursal.idsucursal)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro la sucursal ${sucursal.idSucursal}")
+            throw NotFoundException("No se encontro la sucursal ${sucursal.idsucursal}")
         }
         else{
             try{
@@ -116,44 +115,37 @@ class SucursalBusiness: ISucursalBusiness {
 
     @Throws(BusinessException::class)
 fun validarEspacios(sucursal: Sucursal){
-    if(sucursal.idSucursal.toString().isEmpty()){
+    if(sucursal.idsucursal.toString().isEmpty()){
         throw BusinessException("El id de la sucursal no debe estar vacío")
     }
-    if(sucursal.nombreSucursal.isEmpty()){
+    if(sucursal.nombresucursal.isEmpty()){
         throw BusinessException("El nombre no debe estar vacío")
     }
-    if(sucursal.direccionSucursal.isEmpty()){
+    if(sucursal.direccionsucursal.isEmpty()){
         throw BusinessException("La direccion no debe estar vacío")
     }
-    if(sucursal.telefonoSucursal.toString().isEmpty()){
+    if(sucursal.telefonosucursal.toString().isEmpty()){
         throw BusinessException("El telefono no debe estar vacío")
     }
-    if(sucursal.emailSucursal.isEmpty()){
+    if(sucursal.emailsucursal.isEmpty()){
         throw BusinessException("El email no debe estar vacío")
     }
 }
-
-
-    /*[idSucursal] [numeric](18, 0) NOT NULL,
-[nombreSucursal] [varchar](30) NOT NULL,
-[direccionSucursal] [varchar](60) NOT NULL,
-[telefonoSucursal] [char](8) NOT NULL,
-[emailSucursal] [varchar](30) */
     @Throws(BusinessException::class)
     fun validarLongitud(sucursal: Sucursal){
-        if(sucursal.idSucursal.toString().length<8 ){
+        if(sucursal.idsucursal.toString().length<8 ){
             throw BusinessException("El id no puede ser menor a 8 digitos")
         }
-        if(sucursal.nombreSucursal.length>30){
+        if(sucursal.nombresucursal.length>30){
             throw BusinessException("El nombre no puede ser mayor a 30 caracteres")
         }
-        if(sucursal.direccionSucursal.length>60){
+        if(sucursal.direccionsucursal.length>60){
             throw BusinessException("La direccion no puede ser mayor a 60 caracteres")
         }
-        if(sucursal.telefonoSucursal.toString().length<8){
+        if(sucursal.telefonosucursal.toString().length<8){
             throw BusinessException("El telefono no puede ser menor a 8 dígitos")
         }
-        if(sucursal.emailSucursal.length>30){
+        if(sucursal.emailsucursal.length>30){
             throw BusinessException("El email no puede ser mayor a 30 caracteres")
         }
 

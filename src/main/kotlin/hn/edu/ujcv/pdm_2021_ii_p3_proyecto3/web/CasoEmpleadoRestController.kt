@@ -27,9 +27,9 @@ class CasoEmpleadoRestController {
     }
 
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idCasoEmpleado:Long):ResponseEntity<CasoEmpleado>{
+    fun loadById(@PathVariable("id") idcasoempleado:Long):ResponseEntity<CasoEmpleado>{
         return try{
-            ResponseEntity(casoEmpleadoBusiness!!.getCasoEmpleadoById(idCasoEmpleado),HttpStatus.OK)
+            ResponseEntity(casoEmpleadoBusiness!!.getCasoEmpleadoById(idcasoempleado),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -39,12 +39,12 @@ class CasoEmpleadoRestController {
 
     }
     @PostMapping("/addcasoempleado")
-    fun insert(@RequestBody casoEmpleado: CasoEmpleado):ResponseEntity<Any>{
+    fun insert(@RequestBody casoempleado: CasoEmpleado):ResponseEntity<Any>{
         return try{
-            casoEmpleadoBusiness!!.saveCasoEmpleado(casoEmpleado)
+            casoEmpleadoBusiness!!.saveCasoEmpleado(casoempleado)
             val responseHeader = HttpHeaders ()
-            responseHeader.set("location",Constants.URL_BASE_CASOEMPLEADO+"/"+casoEmpleado.idcasoempleado)
-            ResponseEntity(casoEmpleado,responseHeader,HttpStatus.CREATED)
+            responseHeader.set("location",Constants.URL_BASE_CASOEMPLEADO+"/"+casoempleado.idcasoempleado)
+            ResponseEntity(casoempleado,responseHeader,HttpStatus.CREATED)
         }catch (e:BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
             ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR)
@@ -52,9 +52,9 @@ class CasoEmpleadoRestController {
     }
 
     @PutMapping("")
-    fun update(@RequestBody casoEmpleado: CasoEmpleado):ResponseEntity<Any>{
+    fun update(@RequestBody casoempleado: CasoEmpleado):ResponseEntity<Any>{
         return try{
-            casoEmpleadoBusiness!!.updateCasoEmpleado(casoEmpleado)
+            casoEmpleadoBusiness!!.updateCasoEmpleado(casoempleado)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -65,9 +65,9 @@ class CasoEmpleadoRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idCasoEmpleado:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idcasoempleado:Long):ResponseEntity<Any>{
         return try{
-            casoEmpleadoBusiness!!.removeCasoEmpleado(idCasoEmpleado)
+            casoEmpleadoBusiness!!.removeCasoEmpleado(idcasoempleado)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

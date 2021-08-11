@@ -7,7 +7,7 @@ interface IAudienciaBusiness {
     fun getAudiencia():List<Audiencia>
     fun getAudienciaById(id:Long): Audiencia
     fun saveAudiencia(audiencia: Audiencia): Audiencia
-    fun removeAudiencia(idCaso:Long)
-    fun getAudienciaByidCaso(idCaso: Long): Audiencia
+    fun removeAudiencia(idcaso:Long)
+    fun getAudienciaByidCaso(idcaso: Long): Audiencia
     fun updateAudiencia(audiencia: Audiencia): Audiencia
 }

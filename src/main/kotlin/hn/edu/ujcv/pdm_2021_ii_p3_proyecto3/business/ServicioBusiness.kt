@@ -20,10 +20,10 @@ class ServicioBusiness: IServicioBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getServicioById(idServicio: Long): Servicio {
+    override fun getServicioById(idservicio: Long): Servicio {
         val opt: Optional<Servicio>
         try{
-            opt = servicioRepository!!.findById(idServicio)
+            opt = servicioRepository!!.findById(idservicio)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -31,7 +31,7 @@ class ServicioBusiness: IServicioBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Servicio $idServicio")
+            throw NotFoundException("No se encontró el Servicio $idservicio")
         }
         return opt.get()
     }
@@ -47,34 +47,34 @@ class ServicioBusiness: IServicioBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeServicio(idServicio: Long) {
+    override fun removeServicio(idservicio: Long) {
         val opt: Optional<Servicio>
         try{
-            opt = servicioRepository!!.findById(idServicio)
+            opt = servicioRepository!!.findById(idservicio)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el Servicio : $idServicio")
+            throw NotFoundException("No se encontró el Servicio : $idservicio")
         }
         else{
             try{
-                servicioRepository!!.deleteById(idServicio)
+                servicioRepository!!.deleteById(idservicio)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
 
-    override fun getServicioByNombre(nombreServicio: String): Servicio {
+    override fun getServicioByNombre(nombreservicio: String): Servicio {
         val opt: Optional<Servicio>
         try{
-            opt = servicioRepository!!.findByNombreServicio(nombreServicio)
+            opt = servicioRepository!!.findByNombreServicio(nombreservicio)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Servicio $nombreServicio")
+            throw NotFoundException("No se encontro el Servicio $nombreservicio")
         }
         return opt.get()
     }
@@ -82,12 +82,12 @@ class ServicioBusiness: IServicioBusiness {
     override fun updateSercicio(servicio: Servicio): Servicio {
         val opt: Optional<Servicio>
         try{
-            opt = servicioRepository!!.findById(servicio.idServicio)
+            opt = servicioRepository!!.findById(servicio.idservicio)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Servicio: ${servicio.idServicio}")
+            throw NotFoundException("No se encontro el Servicio: ${servicio.idservicio}")
         }
         else{
             try{
@@ -103,10 +103,10 @@ class ServicioBusiness: IServicioBusiness {
     // Comienzan las validaciones
     @Throws(BusinessException::class)
     fun validarEspacios(servicio: Servicio){
-        if(servicio.nombreServicio.isEmpty()){
+        if(servicio.nombreservicio.isEmpty()){
             throw BusinessException("El nombre del servicio no debe estar vacío")
         }
-        if(servicio.descripcionServicio.isEmpty()){
+        if(servicio.descripcionservicio.isEmpty()){
             throw BusinessException("La descripcion no debe estar vacío")
         }
 
@@ -114,10 +114,10 @@ class ServicioBusiness: IServicioBusiness {
 
     @Throws(BusinessException::class)
     fun validarLongitud(servicio: Servicio) {
-        if (servicio.nombreServicio.length < 4) {
+        if (servicio.nombreservicio.length < 4) {
             throw BusinessException("El nombre no puede ser menor a 4 caracteres")
         }
-        if (servicio.descripcionServicio.length < 10) {
+        if (servicio.descripcionservicio.length < 10) {
             throw BusinessException("La descripcion no puede ser menor a 10 caracteres")
         }
     }

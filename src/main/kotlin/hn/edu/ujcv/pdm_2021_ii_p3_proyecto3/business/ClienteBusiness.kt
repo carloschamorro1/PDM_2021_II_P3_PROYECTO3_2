@@ -26,10 +26,10 @@ class ClienteBusiness:IClienteBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getClienteById(idCliente: Long): Cliente {
+    override fun getClienteById(idcliente: Long): Cliente {
         val opt: Optional<Cliente>
         try{
-            opt = clienteRepository!!.findById(idCliente)
+            opt = clienteRepository!!.findById(idcliente)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -37,7 +37,7 @@ class ClienteBusiness:IClienteBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el cliente $idCliente")
+            throw NotFoundException("No se encontro el cliente $idcliente")
         }
         return opt.get()
     }
@@ -57,34 +57,34 @@ class ClienteBusiness:IClienteBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeCliente(idCliente: Long) {
+    override fun removeCliente(idcliente: Long) {
         val opt: Optional<Cliente>
         try{
-            opt = clienteRepository!!.findById(idCliente)
+            opt = clienteRepository!!.findById(idcliente)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontró el cliente $idCliente")
+            throw NotFoundException("No se encontró el cliente $idcliente")
         }
         else{
             try{
-                clienteRepository!!.deleteById(idCliente)
+                clienteRepository!!.deleteById(idcliente)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getClienteByNombre(nombreCliente: String): Cliente {
+    override fun getClienteByNombre(nombrecliente: String): Cliente {
         val opt: Optional<Cliente>
         try{
-            opt = clienteRepository!!.findBynombrecliente(nombreCliente)
+            opt = clienteRepository!!.findBynombrecliente(nombrecliente)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el cliente $nombreCliente")
+            throw NotFoundException("No se encontro el cliente $nombrecliente")
         }
         return opt.get()
     }

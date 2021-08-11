@@ -23,9 +23,9 @@ class AudienciaRestController {
         }
     }
     @GetMapping("/id/{id}")
-    fun loadById(@PathVariable("id") idFechaAudiencia:Long):ResponseEntity<Audiencia>{
+    fun loadById(@PathVariable("id") idfechaaudiencia:Long):ResponseEntity<Audiencia>{
         return try{
-            ResponseEntity(audienciaBusiness!!.getAudienciaById(idFechaAudiencia),HttpStatus.OK)
+            ResponseEntity(audienciaBusiness!!.getAudienciaById(idfechaaudiencia),HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -69,9 +69,9 @@ class AudienciaRestController {
         }
     }
     @DeleteMapping("/delete/{id}")
-    fun delete(@PathVariable("id")idCaso:Long):ResponseEntity<Any>{
+    fun delete(@PathVariable("id")idcaso:Long):ResponseEntity<Any>{
         return try{
-            audienciaBusiness!!.removeAudiencia(idCaso)
+            audienciaBusiness!!.removeAudiencia(idcaso)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
