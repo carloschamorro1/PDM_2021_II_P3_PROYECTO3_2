@@ -21,10 +21,10 @@ class FacturaDetalleBusiness:IFacturaDetalleBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun getFacturaDetalleById(idDetalle: Long): FacturaDetalle {
+    override fun getFacturaDetalleById(iddetalle: Long): FacturaDetalle {
         val opt:Optional<FacturaDetalle>
         try{
-            opt = facturaDetalleRepository!!.findById(idDetalle)
+            opt = facturaDetalleRepository!!.findById(iddetalle)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -32,54 +32,54 @@ class FacturaDetalleBusiness:IFacturaDetalleBusiness {
             throw BusinessException("Debe ingresar un id")
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el id del detalle de la factura $idDetalle")
+            throw NotFoundException("No se encontro el id del detalle de la factura $iddetalle")
         }
         return opt.get()
     }
     @Throws(BusinessException::class)
-    override fun saveFacturaDetalle(facturaDetalle: FacturaDetalle): FacturaDetalle {
+    override fun saveFacturaDetalle(facturadetalle: FacturaDetalle): FacturaDetalle {
         try{
-        validarEspacios(facturaDetalle)
-        validarLongitudMaxima(facturaDetalle)
-        return facturaDetalleRepository!!.save(facturaDetalle)
+        validarEspacios(facturadetalle)
+        validarLongitudMaxima(facturadetalle)
+        return facturaDetalleRepository!!.save(facturadetalle)
              }catch (e:Exception){
         throw BusinessException(e.message)
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeFacturaDetalle(idDetalle: Long) {
+    override fun removeFacturaDetalle(iddetalle: Long) {
         val opt:Optional<FacturaDetalle>
         try{
-            opt = facturaDetalleRepository!!.findById(idDetalle)
+            opt = facturaDetalleRepository!!.findById(iddetalle)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el id del detalle de la factura $idDetalle")
+            throw NotFoundException("No se encontro el id del detalle de la factura $iddetalle")
         }
         else{
             try{
-                facturaDetalleRepository!!.deleteById(idDetalle)
+                facturaDetalleRepository!!.deleteById(iddetalle)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun updateFacturaDetalle(facturaDetalle: FacturaDetalle): FacturaDetalle {
+    override fun updateFacturaDetalle(facturadetalle: FacturaDetalle): FacturaDetalle {
         val opt:Optional<FacturaDetalle>
         try{
-            opt = facturaDetalleRepository!!.findById(facturaDetalle.idDetalle)
+            opt = facturaDetalleRepository!!.findById(facturadetalle.iddetalle)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el id del detalle de la factura ${facturaDetalle.idDetalle}")
+            throw NotFoundException("No se encontro el id del detalle de la factura ${facturadetalle.iddetalle}")
         }
         else{
             try{
-                validarLongitudMaxima(facturaDetalle)
-                return facturaDetalleRepository!!.save(facturaDetalle)
+                validarLongitudMaxima(facturadetalle)
+                return facturaDetalleRepository!!.save(facturadetalle)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
@@ -89,34 +89,34 @@ class FacturaDetalleBusiness:IFacturaDetalleBusiness {
 
     @Throws(BusinessException::class)
     fun validarEspacios(facturaDetalle: FacturaDetalle){
-        if(facturaDetalle.idDetalle.toString().isEmpty()){
+        if(facturaDetalle.iddetalle.toString().isEmpty()){
             throw BusinessException("El id del detalle de la factura no debe estar vacío")
         }
-        if(facturaDetalle.idFactura.toString().isEmpty()){
+        if(facturaDetalle.idfactura.toString().isEmpty()){
             throw BusinessException("El id de la factura no debe estar vacío")
         }
-        if(facturaDetalle.idServicio.toString().isEmpty()){
+        if(facturaDetalle.idservicio.toString().isEmpty()){
             throw BusinessException("El id del servicio no debe estar vacío")
         }
 
-        if(facturaDetalle.cantidadFactura.isEmpty()){
+        if(facturaDetalle.cantidadfactura.isEmpty()){
             throw BusinessException("La cantidad no puede estar vacía")
         }
     }
 
     @Throws(BusinessException::class)
     fun validarLongitudMaxima(facturaDetalle: FacturaDetalle){
-        if(facturaDetalle.idDetalle.toString().length > 10){
+        if(facturaDetalle.iddetalle.toString().length > 10){
             throw BusinessException("El id del detalle de la factura no puede ser mayor a 10 dígitos")
         }
-        if(facturaDetalle.idFactura.toString().length > 10){
+        if(facturaDetalle.idfactura.toString().length > 10){
             throw BusinessException("El id de la factura no puede ser mayor a 10 dígitos")
         }
-        if(facturaDetalle.idServicio.toString().length > 10){
+        if(facturaDetalle.idservicio.toString().length > 10){
             throw BusinessException("El id del servicio no puede ser mayor a 10 dígitos")
         }
 
-        if(facturaDetalle.cantidadFactura.length > 2){
+        if(facturaDetalle.cantidadfactura.length > 2){
             throw BusinessException("La cantidad no puede ser mayor a 2")
         }
     }

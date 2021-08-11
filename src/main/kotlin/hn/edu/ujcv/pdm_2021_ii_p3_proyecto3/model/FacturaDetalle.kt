@@ -4,9 +4,9 @@ import javax.persistence.*
 
 @Entity
 @Table(name="facturadetalle")
-data class FacturaDetalle(val idFactura:Long = 0, val idServicio:Long = 0, val cantidadFactura:String="") {
+data class FacturaDetalle(val idfactura:Long = 0, val idservicio:Long = 0, val cantidadfactura:String="") {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idDetalle:Long = 0
+    var iddetalle:Long = 0
 }
