@@ -5,8 +5,13 @@ import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.CasoEmpleado
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
+@Service
 class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
 {
 
@@ -45,7 +50,9 @@ class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
         try{
             validarEspacios(casoempleado)
             validarLongitud(casoempleado)
-
+            validarLongitudMaxima(casoempleado)
+            validarFecha(casoempleado.fechainiciotrabajoencaso)
+            validarFecha(casoempleado.fechafinaltrabajoencaso)
             return casoEmpleadoRepository!!.save(casoempleado)
         }catch(e:Exception){
             throw BusinessException(e.message)
@@ -85,6 +92,9 @@ class CasoEmpleadoBusiness:ICasoEmpleadoBusiness
             try{
                 validarEspacios(casoempleado)
                 validarLongitud(casoempleado)
+                validarLongitudMaxima(casoempleado)
+                validarFecha(casoempleado.fechainiciotrabajoencaso)
+                validarFecha(casoempleado.fechafinaltrabajoencaso)
                 return casoEmpleadoRepository!!.save(casoempleado)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
@@ -117,23 +127,53 @@ fun validarEspacios(casoempleado: CasoEmpleado){
 }
     @Throws(BusinessException::class)
     fun validarLongitud(casoempleado: CasoEmpleado){
-        if(casoempleado.idcasoempleado.toString().length<8 ){
-            throw BusinessException("El id del caso empleado no puede ser menor a 8 digitos")
+
+        if(casoempleado.fechainiciotrabajoencaso.length!=10){
+            throw BusinessException("La fecha de inicio no puede ser distinto a 10 caracteres")
         }
-        if(casoempleado.idempleado.toString().length<8){
-            throw BusinessException("El id del empleado no puede ser menor a 8 digitos")
+        if(casoempleado.fechafinaltrabajoencaso.length!=10){
+            throw BusinessException("La fecha final no puede ser distinto a 10 caracteres")
         }
-        if(casoempleado.idcaso.toString().length<8){
-            throw BusinessException("El id del caso no puede ser menor a 8 dígitos")
+        if(casoempleado.descripcioncasoempleado.length< 10){
+            throw BusinessException("La descripcion no puede ser menor a 10 caracteres")
         }
-        if(casoempleado.fechainiciotrabajoencaso.toString().length<6){
-            throw BusinessException("La fecha de inicio no puede ser menor a 6 dígitos")
+    }
+
+    @Throws(BusinessException::class)
+    fun validarLongitudMaxima(casoempleado: CasoEmpleado){
+        if(casoempleado.idcasoempleado.toString().length>10 ){
+            throw BusinessException("El id del caso empleado no puede ser mayor a 10 digitos")
         }
-        if(casoempleado.fechafinaltrabajoencaso.toString().length<6){
-            throw BusinessException("La fecha final no puede ser menor a 6 dígitos")
+        if(casoempleado.idempleado.toString().length>10){
+            throw BusinessException("El id del empleado no puede ser mayor a 10 digitos")
+        }
+        if(casoempleado.idcaso.toString().length>10){
+            throw BusinessException("El id del caso no puede ser mayor a 10 dígitos")
         }
         if(casoempleado.descripcioncasoempleado.length>100){
             throw BusinessException("La descripcion no puede ser mayor a 100 caracteres")
         }
     }
+
+    @Throws(BusinessException::class)
+    fun validarFecha(fecha:String) {
+        val format = SimpleDateFormat("yyyy-mm-dd")
+        if (fecha.length == 10) {
+            try{
+                format.parse(fecha)
+            }catch(e: Exception){
+                throw BusinessException("No ha ingresado una fecha valida, solo se pueden valores de fechas entre 1900 - 2099")
+            }
+            val regex = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|[3][01])"
+            val pattern: Pattern = Pattern.compile(regex)
+            val matcher: Matcher = pattern.matcher(fecha)
+            if (matcher.matches()) {
+                return
+            } else {
+                throw BusinessException("El formato de fecha es incorrecto, debe ingresarlo (dd/mm/yyyy)")
+
+            }
+        }
+    }
+
 }

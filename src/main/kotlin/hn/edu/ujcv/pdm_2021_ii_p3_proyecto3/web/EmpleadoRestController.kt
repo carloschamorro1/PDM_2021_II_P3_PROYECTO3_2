@@ -1,3 +1,5 @@
+package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.web
+
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.business.IEmpleadoBusiness
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Empleado
@@ -10,10 +12,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping(Constants.URL_BASE_PRUEBA)
+@RequestMapping(Constants.URL_BASE_EMPLEADO)
 class EmpleadoRestController {
+
     @Autowired
-    val empleadoBusiness:IEmpleadoBusiness? = null
+    val empleadoBusiness: IEmpleadoBusiness? = null
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Empleado>> {
@@ -31,7 +34,7 @@ class EmpleadoRestController {
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        catch (e:BusinessException){
+        catch (e: BusinessException){
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
@@ -40,10 +43,10 @@ class EmpleadoRestController {
     fun loadByNombre(@PathVariable("nombre") nombreempleado:String):ResponseEntity<Empleado>{
         return try{
             ResponseEntity(empleadoBusiness!!.getEmpleadoByNombre(nombreempleado),HttpStatus.OK)
-        }catch (e:BusinessException){
+        }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        catch (e:BusinessException){
+        catch (e: BusinessException){
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
@@ -55,7 +58,7 @@ class EmpleadoRestController {
             val responseHeader = HttpHeaders ()
             responseHeader.set("location",Constants.URL_BASE_PRUEBA+"/"+empleado.idempleado)
             ResponseEntity(empleado,responseHeader,HttpStatus.CREATED)
-        }catch (e:BusinessException){
+        }catch (e: BusinessException){
             val apiError = RestApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Informacion enviada no es valida",e.message.toString())
             ResponseEntity(apiError,HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -66,10 +69,10 @@ class EmpleadoRestController {
         return try{
             empleadoBusiness!!.updateEmpleado(empleado)
             ResponseEntity(HttpStatus.OK)
-        }catch (e:BusinessException){
+        }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        catch (e:BusinessException){
+        catch (e: BusinessException){
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
@@ -79,12 +82,11 @@ class EmpleadoRestController {
         return try{
             empleadoBusiness!!.removeEmpleado(idempleado)
             ResponseEntity(HttpStatus.OK)
-        }catch (e:BusinessException){
+        }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
-        catch (e:BusinessException){
+        catch (e: BusinessException){
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
-
 }

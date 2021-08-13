@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name="audienciadetalle")
-data class Audiencia(val idcaso:Long= 0, val fechaaudiencia:Date,
+data class Audiencia(val idcaso:Long= 0, val fechaaudiencia:String ="",
                      val idjuzgado:Long = 0, val descripcionaudiencia:String= ""){
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

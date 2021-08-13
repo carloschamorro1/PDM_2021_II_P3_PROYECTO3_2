@@ -5,8 +5,13 @@ import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.FacturaEncabezado
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
+@Service
 class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
 
     @Autowired
@@ -42,6 +47,7 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
             validarEspacios(facturaencabezado)
             validarLongitud(facturaencabezado)
             validarLongitudMaxima(facturaencabezado)
+            validarFecha(facturaencabezado.fechaemisionfactura)
             return facturaEncabezadoRepository!!.save(facturaencabezado)
         }catch (e:Exception){
             throw BusinessException(e.message)
@@ -82,6 +88,7 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
                 validarEspacios(facturaencabezado)
                 validarLongitud(facturaencabezado)
                 validarLongitudMaxima(facturaencabezado)
+                validarFecha(facturaencabezado.fechaemisionfactura)
                 return facturaEncabezadoRepository!!.save(facturaencabezado)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
@@ -139,6 +146,27 @@ class FacturaEncabezadoBusiness:IFacturaEncabezadoBusiness {
         }
         if(facturaencabezado.idcaso.toString().length > 10){
             throw BusinessException("La ID del caso no puede ser mayor a 10 caracteres")
+        }
+    }
+
+    @Throws(BusinessException::class)
+    fun validarFecha(fecha:String) {
+        val format = SimpleDateFormat("yyyy-mm-dd")
+        if (fecha.length == 10) {
+            try{
+                format.parse(fecha)
+            }catch(e: Exception){
+                throw BusinessException("No ha ingresado una fecha valida, solo se pueden valores de fechas entre 1900 - 2099")
+            }
+            val regex = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|[3][01])"
+            val pattern: Pattern = Pattern.compile(regex)
+            val matcher: Matcher = pattern.matcher(fecha)
+            if (matcher.matches()) {
+                return
+            } else {
+                throw BusinessException("El formato de fecha es incorrecto, debe ingresarlo (dd/mm/yyyy)")
+
+            }
         }
     }
 }

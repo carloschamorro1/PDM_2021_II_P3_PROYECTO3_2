@@ -1,10 +1,8 @@
 package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.business
 
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.dao.EmpleadoRepository
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.dao.JuzgadoRepository
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Empleado
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Juzgado
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -75,7 +73,7 @@ class JuzgadoBusiness:IJuzgadoBusiness {
     override fun getJuzgadoByNombre(nombrejuzgado: String): Juzgado {
         val opt: Optional<Juzgado>
         try{
-            opt = juzgadoRepository!!.findByNombre(nombrejuzgado)
+            opt = juzgadoRepository!!.findBynombrejuzgado(nombrejuzgado)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -88,12 +86,12 @@ class JuzgadoBusiness:IJuzgadoBusiness {
     override fun updateJuzgado(juzgado: Juzgado): Juzgado {
         val opt: Optional<Juzgado>
         try{
-            opt = juzgadoRepository!!.findById(juzgado.id)
+            opt = juzgadoRepository!!.findById(juzgado.idjuzgado)
         }catch (e: Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el Juzgado ${juzgado.id}")
+            throw NotFoundException("No se encontro el Juzgado ${juzgado.idjuzgado}")
         }
         else{
             try{
@@ -109,10 +107,10 @@ class JuzgadoBusiness:IJuzgadoBusiness {
     // Comienzan las validaciones
     @Throws(BusinessException::class)
     fun validarEspacios(juzgado: Juzgado){
-        if(juzgado.nombre.isEmpty()){
+        if(juzgado.nombrejuzgado.isEmpty()){
             throw BusinessException("El nombre del juzgado no debe estar vacío")
         }
-        if(juzgado.dirreccion.isEmpty()){
+        if(juzgado.direccionjuzgado.isEmpty()){
             throw BusinessException("La dirección no debe estar vacío")
         }
 
@@ -120,10 +118,10 @@ class JuzgadoBusiness:IJuzgadoBusiness {
 
     @Throws(BusinessException::class)
     fun validarLongitud(juzgado: Juzgado) {
-        if (juzgado.nombre.length < 4) {
+        if (juzgado.nombrejuzgado.length < 4) {
             throw BusinessException("El nombre no puede ser menor a 4 caracteres")
         }
-        if (juzgado.dirreccion.length < 10) {
+        if (juzgado.direccionjuzgado.length < 10) {
             throw BusinessException("La direccion no puede ser menor a 10 caracteres")
         }
     }

@@ -5,8 +5,10 @@ import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Servicio
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 import java.util.*
 
+@Service
 class ServicioBusiness: IServicioBusiness {
     @Autowired
     val servicioRepository: ServicioRepository? = null
@@ -40,7 +42,7 @@ class ServicioBusiness: IServicioBusiness {
         try{
             validarEspacios(servicio)
             validarLongitud(servicio)
-
+            validarLongitudMaxima(servicio)
             return servicioRepository!!.save(servicio)
         }catch(e:Exception){
             throw BusinessException(e.message)
@@ -69,7 +71,7 @@ class ServicioBusiness: IServicioBusiness {
     override fun getServicioByNombre(nombreservicio: String): Servicio {
         val opt: Optional<Servicio>
         try{
-            opt = servicioRepository!!.findByNombreServicio(nombreservicio)
+            opt = servicioRepository!!.findBynombreservicio(nombreservicio)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -91,6 +93,9 @@ class ServicioBusiness: IServicioBusiness {
         }
         else{
             try{
+                validarEspacios(servicio)
+                validarLongitud(servicio)
+                validarLongitudMaxima(servicio)
                 return servicioRepository!!.save(servicio)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
@@ -119,6 +124,16 @@ class ServicioBusiness: IServicioBusiness {
         }
         if (servicio.descripcionservicio.length < 10) {
             throw BusinessException("La descripcion no puede ser menor a 10 caracteres")
+        }
+    }
+
+    @Throws(BusinessException::class)
+    fun validarLongitudMaxima(servicio: Servicio) {
+        if (servicio.nombreservicio.length > 30) {
+            throw BusinessException("El nombre no puede ser mayor a 30 caracteres")
+        }
+        if (servicio.descripcionservicio.length > 50) {
+            throw BusinessException("La descripcion no puede ser mayor a 50 caracteres")
         }
     }
 

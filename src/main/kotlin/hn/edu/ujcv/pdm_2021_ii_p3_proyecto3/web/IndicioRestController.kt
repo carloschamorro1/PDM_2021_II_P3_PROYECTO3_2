@@ -21,6 +21,7 @@ class IndicioRestController {
     @Autowired
     val indicioBusiness: IIndicioBusiness? = null
 
+    @GetMapping("")
     fun list(): ResponseEntity<List<Indicio>> {
         return try{
             ResponseEntity(indicioBusiness!!.getIndicio(), HttpStatus.OK)

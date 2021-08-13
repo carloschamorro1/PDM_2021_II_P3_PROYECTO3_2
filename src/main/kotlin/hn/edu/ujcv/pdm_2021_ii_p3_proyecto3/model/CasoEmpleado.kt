@@ -1,11 +1,10 @@
 package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model
 
-import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name="casoempleado")
-class CasoEmpleado (val idempleado:Long=0, val idcaso:Long=0, val fechainiciotrabajoencaso:Date, val fechafinaltrabajoencaso:Date,
+class CasoEmpleado (val idempleado:Long=0, val idcaso:Long=0, val fechainiciotrabajoencaso:String ="", val fechafinaltrabajoencaso:String = "",
                     val descripcioncasoempleado:String=""){
 
     @Id

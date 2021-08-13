@@ -6,12 +6,13 @@ import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Cliente
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.PrecioHistorico
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
+@Service
 class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
 
     @Autowired
@@ -135,14 +136,14 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
 
     @Throws(BusinessException::class)
     fun validarFecha(fecha:String) {
-        val format = SimpleDateFormat("dd/mm/yyyy")
+        val format = SimpleDateFormat("yyyy-mm-dd")
         if (fecha.length == 10) {
             try{
                 format.parse(fecha)
             }catch(e: Exception){
                 throw BusinessException("No ha ingresado una fecha valida, solo se pueden valores de fechas entre 1900 - 2099")
             }
-            val regex = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$"
+            val regex = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|[3][01])"
             val pattern: Pattern = Pattern.compile(regex)
             val matcher: Matcher = pattern.matcher(fecha)
             if (matcher.matches()) {

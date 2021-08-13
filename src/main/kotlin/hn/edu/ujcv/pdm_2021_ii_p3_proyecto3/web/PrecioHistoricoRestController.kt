@@ -54,7 +54,7 @@ class PrecioHistoricoRestController {
     @PutMapping("")
     fun update(@RequestBody preciohistorico: PrecioHistorico):ResponseEntity<Any>{
         return try{
-            precioHistoricoBusiness!!.savePrecioHistorico(preciohistorico)
+            precioHistoricoBusiness!!.updatePrecioHistorico(preciohistorico)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

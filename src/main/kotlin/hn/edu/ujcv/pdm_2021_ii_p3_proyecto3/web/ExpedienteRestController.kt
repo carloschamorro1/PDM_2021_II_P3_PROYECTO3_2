@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(Constants.URL_BASE_EXPEDIENTE)
 
 class ExpedienteRestController {
+
     @Autowired
-    val expedienteBusiness:IExpedienteBusiness?=null
+    val expedientebusiness:IExpedienteBusiness?=null
 
     @GetMapping("")
     fun list(): ResponseEntity<List<Expediente>> {
         return try{
-            ResponseEntity(expedienteBusiness!!.getExpediente(), HttpStatus.OK)
+            ResponseEntity(expedientebusiness!!.getExpediente(), HttpStatus.OK)
         }catch (e:Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -30,7 +31,7 @@ class ExpedienteRestController {
     @PostMapping("/addexpediente")
     fun insert(@RequestBody expediente: Expediente):ResponseEntity<Any>{
         return try{
-            expedienteBusiness!!.saveExpediente(expediente)
+            expedientebusiness!!.saveExpediente(expediente)
             val responseHeader = HttpHeaders ()
             responseHeader.set("location",Constants.URL_BASE_EXPEDIENTE+"/"+expediente.idexpediente)
             ResponseEntity(expediente,responseHeader,HttpStatus.CREATED)
@@ -43,7 +44,7 @@ class ExpedienteRestController {
     @PutMapping("")
     fun update(@RequestBody expediente: Expediente):ResponseEntity<Any>{
         return try{
-            expedienteBusiness!!.updateExpediente(expediente)
+            expedientebusiness!!.updateExpediente(expediente)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -56,7 +57,7 @@ class ExpedienteRestController {
     @DeleteMapping("/delete/{id}")
     fun delete(@PathVariable("id")idexpediente:Long):ResponseEntity<Any>{
         return try{
-            expedienteBusiness!!.removeExpediente(idexpediente)
+            expedientebusiness!!.removeExpediente(idexpediente)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)

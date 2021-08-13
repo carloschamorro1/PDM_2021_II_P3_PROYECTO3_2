@@ -4,9 +4,9 @@ import javax.persistence.*
 
 @Entity
 @Table(name="empleado")//, catalog = "dbo")
-data class Empleado(val nombreempleado:String ="", val apellidoempleado:String="", val dniempleado:Long = 0, val telefonoempleado:Long = 0,
-                    val salarioempleado:Double = 0.0, val tipoempleado:String="", val nombreusuario:String="", val claveusuario:String = "") {
+data class Empleado(val nombreempleado:String ="", val apellidoempleado:String="", val dniempleado:String="", val telefonoempleado:Long = 0,
+                    val direccionempleado:String = "", val salarioempleado:Double = 0.0, val tipoempleado:String="", val nombreusuario:String="", val claveusuario:String = "") {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idempleado:Long=0
+    var idempleado: Long = 0
 }

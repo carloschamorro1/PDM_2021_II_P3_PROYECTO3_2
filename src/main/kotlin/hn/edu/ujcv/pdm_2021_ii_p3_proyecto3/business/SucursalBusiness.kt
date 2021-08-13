@@ -1,10 +1,8 @@
 package hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.business
 
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.dao.EmpleadoRepository
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.dao.SucursalRepository
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.BusinessException
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.exceptions.NotFoundException
-import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Empleado
 import hn.edu.ujcv.pdm_2021_ii_p3_proyecto3.model.Sucursal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -48,7 +46,7 @@ class SucursalBusiness: ISucursalBusiness {
         try{
             validarEspacios(sucursal)
             validarLongitud(sucursal)
-
+            validarLongitudMaxima(sucursal)
             return sucursalRepository!!.save(sucursal)
         }catch(e:Exception){
             throw BusinessException(e.message)
@@ -77,7 +75,7 @@ class SucursalBusiness: ISucursalBusiness {
     override fun getSucursalByNombre(nombresucursal: String): Sucursal {
         val opt: Optional<Sucursal>
         try{
-            opt = sucursalRepository!!.findByNombreSucursal(nombresucursal)
+            opt = sucursalRepository!!.findBynombresucursal(nombresucursal)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -101,7 +99,7 @@ class SucursalBusiness: ISucursalBusiness {
             try{
                 validarEspacios(sucursal)
                 validarLongitud(sucursal)
-
+                validarLongitudMaxima(sucursal)
                 return sucursalRepository!!.save(sucursal)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
@@ -133,8 +131,22 @@ fun validarEspacios(sucursal: Sucursal){
 }
     @Throws(BusinessException::class)
     fun validarLongitud(sucursal: Sucursal){
-        if(sucursal.idsucursal.toString().length<8 ){
-            throw BusinessException("El id no puede ser menor a 8 digitos")
+
+        if(sucursal.nombresucursal.length< 5){
+            throw BusinessException("El nombre no puede ser menor a 5 caracteres")
+        }
+        if(sucursal.direccionsucursal.length< 10){
+            throw BusinessException("La direccion no puede ser menor a 10 caracteres")
+        }
+        if(sucursal.emailsucursal.length< 8){
+            throw BusinessException("El email no puede ser menor a 8 caracteres")
+        }
+    }
+
+
+    fun validarLongitudMaxima(sucursal: Sucursal){
+        if(sucursal.idsucursal.toString().length> 10 ){
+            throw BusinessException("El id no puede ser menor a 10 digitos")
         }
         if(sucursal.nombresucursal.length>30){
             throw BusinessException("El nombre no puede ser mayor a 30 caracteres")
@@ -142,13 +154,13 @@ fun validarEspacios(sucursal: Sucursal){
         if(sucursal.direccionsucursal.length>60){
             throw BusinessException("La direccion no puede ser mayor a 60 caracteres")
         }
-        if(sucursal.telefonosucursal.toString().length<8){
-            throw BusinessException("El telefono no puede ser menor a 8 dígitos")
+        if(sucursal.telefonosucursal.toString().length!=8){
+            throw BusinessException("El telefono no puede ser diferente a 8 dígitos")
         }
-        if(sucursal.emailsucursal.length>30){
-            throw BusinessException("El email no puede ser mayor a 30 caracteres")
+        if(sucursal.emailsucursal.length>45){
+            throw BusinessException("El email no puede ser mayor a 45 caracteres")
         }
-
-
     }
+
+
 }

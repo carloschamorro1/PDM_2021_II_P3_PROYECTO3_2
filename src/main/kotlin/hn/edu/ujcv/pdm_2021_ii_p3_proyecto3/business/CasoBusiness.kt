@@ -42,6 +42,7 @@ class CasoBusiness: ICasoBusiness{
         try{
             validarEspacios(caso)
             validarLongitud(caso)
+            validarLongitudMaxima(caso)
 
             return casoRepository!!.save(caso)
         }catch(e:Exception){
@@ -93,6 +94,7 @@ class CasoBusiness: ICasoBusiness{
             try{
                 validarEspacios(caso)
                 validarLongitud(caso)
+                validarLongitudMaxima(caso)
                 return casoRepository!!.save(caso)
             }catch(e: java.lang.Exception){
                 throw BusinessException(e.message)
@@ -126,28 +128,32 @@ class CasoBusiness: ICasoBusiness{
     }
     @Throws(BusinessException::class)
     fun validarLongitud(caso: Caso){
-        if(caso.idcaso.toString().length<8){
-            throw BusinessException("El id del caso no puede ser menor a 8 caracteres")
-        }
-        if(caso.tipocaso.length<10){
-            throw BusinessException("El tipo de caso no puede ser menor a 10 caracteres")
-        }
         if(caso.sentenciacaso.length<10){
             throw BusinessException("La sentencia no puede ser menor a 10 caracteres")
         }
-        if(caso.idcliente.toString().length<8){
+    }
+
+    @Throws(BusinessException::class)
+    fun validarLongitudMaxima(caso: Caso){
+        if(caso.idcaso.toString().length> 10){
+            throw BusinessException("El id del caso no puede ser mayor a 10 caracteres")
+        }
+        if(caso.tipocaso.length>1){
+            throw BusinessException("El tipo de caso no puede ser mayor a 1 caracteres")
+        }
+        if(caso.sentenciacaso.length>25){
+            throw BusinessException("La sentencia no puede ser mayor a 25 caracteres")
+        }
+        if(caso.idcliente.toString().length>10){
             throw BusinessException("El id del cliente no puede ser menor a 8 dígitos")
         }
-        if(caso.idservicio.toString().length<8){
+        if(caso.idservicio.toString().length>10){
             throw BusinessException("El id del servicio no puede ser menor a 8 dígitos")
         }
 
-        if(caso.estadocaso.length<10){
-            throw BusinessException("El estado del caso no puede ser menor a 10 caracteres")
+        if(caso.estadocaso.length>1){
+            throw BusinessException("El estado del caso no puede ser mayor a 1 caracter")
         }
-
-
     }
-
 
 }

@@ -63,12 +63,12 @@ class CAIBusiness:ICAIBusiness
         else{
             try{
                 caiRepository!!.deleteById(idCAI)
-            }catch (e: java.lang.Exception){
+            }catch (e: Exception){
                 throw BusinessException(e.message)
             }
         }
     }
-
+    @Throws(BusinessException::class, NotFoundException::class)
     override fun updateCAI(cai: CAI): CAI{
         val opt: Optional<CAI>
         try{
@@ -81,8 +81,10 @@ class CAIBusiness:ICAIBusiness
         }
         else{
             try{
+                validarEspacios(cai)
+                validarLongitud(cai)
                 return caiRepository!!.save(cai)
-            }catch(e: java.lang.Exception){
+            }catch(e: Exception){
                 throw BusinessException(e.message)
             }
         }
@@ -94,7 +96,7 @@ class CAIBusiness:ICAIBusiness
         if(cai.idcai.toString().isEmpty()){
             throw BusinessException("El Id no debe estar vacío")
         }
-        if(cai.cai.toString().isEmpty()){
+        if(cai.cai.isEmpty()){
             throw BusinessException("El CAI no debe estar vacío")
         }
         if(cai.rangoinicial.toString().isEmpty()){
@@ -109,10 +111,7 @@ class CAIBusiness:ICAIBusiness
     }
     @Throws(BusinessException::class)
     fun validarLongitud(cai: CAI){
-        if(cai.idcai.toString().length< 3){
-            throw BusinessException("El id no puede ser menor a 3 caracteres")
-        }
-        if(cai.cai.toString().length< 8){
+        if(cai.cai.length< 8){
             throw BusinessException("El CAI no puede ser menor a 8 caracteres")
         }
         if(cai.rangoinicial.toString().length<8){

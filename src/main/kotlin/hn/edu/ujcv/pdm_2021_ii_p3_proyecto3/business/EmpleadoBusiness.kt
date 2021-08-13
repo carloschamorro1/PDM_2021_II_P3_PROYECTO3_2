@@ -10,23 +10,19 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
-
-
-
 @Service
-class EmpleadoBusiness: IEmpleadoBusiness {
+class EmpleadoBusiness:IEmpleadoBusiness {
 
     @Autowired
     val empleadoRepository: EmpleadoRepository?=null
 
     @Throws(BusinessException::class)
     override fun getEmpleado(): List<Empleado> {
-       try{
-           return empleadoRepository!!.findAll()
-       }catch (e:Exception){
-           throw BusinessException(e.message)
-       }
+        try{
+            return empleadoRepository!!.findAll()
+        }catch (e:Exception){
+            throw BusinessException(e.message)
+        }
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
@@ -56,7 +52,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
             validarIdentidad(empleado.dniempleado.toString())
             validarContraseñas(empleado.claveusuario)
             validarLongitudMaxima(empleado)
-           return empleadoRepository!!.save(empleado)
+            return empleadoRepository!!.save(empleado)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
@@ -152,7 +148,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
     }
 
     @Throws(BusinessException::class)
-    fun validarLongitud(empleado: Empleado){
+    fun validarLongitudMaxima(empleado: Empleado){
         if(empleado.nombreempleado.length > 40 ){
             throw BusinessException("El nombre no puede ser mayor a 40 caracteres")
         }
@@ -161,6 +157,9 @@ class EmpleadoBusiness: IEmpleadoBusiness {
         }
         if(empleado.dniempleado.toString().length != 15){
             throw BusinessException("El dni no puede ser distinto a 13 dígitos")
+        }
+        if(empleado.direccionempleado.length > 30){
+            throw BusinessException("La direccion no puede ser mayor a 30 caracteres")
         }
         if(empleado.telefonoempleado.toString().length != 8){
             throw BusinessException("El telefono no puede ser distinto a 8 dígitos")
@@ -182,10 +181,10 @@ class EmpleadoBusiness: IEmpleadoBusiness {
     fun validarIdentidad(identidad:String){
         val id = identidad.substring(0,1)
         if(identidad.length == 15){
-            if("0".equals(identidad)){
+            if("0".equals(id)){
                 return
             }
-            else if("1".equals(identidad)){
+            else if("1".equals(id)){
                 return
             }
             else{
@@ -244,7 +243,7 @@ class EmpleadoBusiness: IEmpleadoBusiness {
     }
 
     @Throws(BusinessException::class)
-    fun validarLongitudMaxima(empleado: Empleado){
+    fun validarLongitud(empleado: Empleado){
         if(empleado.nombreempleado.length < 3){
             throw BusinessException("El nombre no puede ser menor a 3 caracteres")
         }

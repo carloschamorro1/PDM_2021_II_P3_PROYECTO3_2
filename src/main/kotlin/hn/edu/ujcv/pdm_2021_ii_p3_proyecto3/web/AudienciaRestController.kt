@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*
 class AudienciaRestController {
     @Autowired
     val audienciaBusiness: IAudienciaBusiness? = null
+
+    @GetMapping("")
     fun list(): ResponseEntity<List<Audiencia>> {
         return try{
             ResponseEntity(audienciaBusiness!!.getAudiencia(), HttpStatus.OK)

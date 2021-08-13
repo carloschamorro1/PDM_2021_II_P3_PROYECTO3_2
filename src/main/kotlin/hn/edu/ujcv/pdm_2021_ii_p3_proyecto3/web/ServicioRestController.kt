@@ -51,7 +51,7 @@ class ServicioRestController {
         }
     }
 
-    @PostMapping("/addServicio")
+    @PostMapping("/addservicio")
     fun insert(@RequestBody  servicio: Servicio): ResponseEntity<Any> {
         return try{
             servicioBusiness!!.saveServicio(servicio)

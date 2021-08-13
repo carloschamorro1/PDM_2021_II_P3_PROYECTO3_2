@@ -74,7 +74,7 @@ class IndicioBusiness :IIndicioBusiness {
     override fun getIndicioByIdCaso(idcaso: Long): Indicio {
         val opt: Optional<Indicio>
         try{
-            opt = indicioRepository!!.findByIdCaso(idcaso)
+            opt = indicioRepository!!.findByidcaso(idcaso)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }

@@ -142,10 +142,10 @@ class ClienteBusiness:IClienteBusiness {
     fun validarIdentidad(identidad:String){
         val id = identidad.substring(0,1)
         if(identidad.length == 15){
-            if("0".equals(identidad)){
+            if("0".equals(id)){
                 return
             }
-            else if("1".equals(identidad)){
+            else if("1".equals(id)){
                 return
             }
             else{
