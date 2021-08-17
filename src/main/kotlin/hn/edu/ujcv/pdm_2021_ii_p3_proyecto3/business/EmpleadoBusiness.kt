@@ -50,7 +50,6 @@ class EmpleadoBusiness:IEmpleadoBusiness {
             validarSalario(empleado.salarioempleado)
             validarTelefono(empleado.telefonoempleado.toString())
             validarIdentidad(empleado.dniempleado.toString())
-            validarContraseñas(empleado.claveusuario)
             validarLongitudMaxima(empleado)
             return empleadoRepository!!.save(empleado)
         }catch(e:Exception){
@@ -108,7 +107,6 @@ class EmpleadoBusiness:IEmpleadoBusiness {
                 validarSalario(empleado.salarioempleado)
                 validarTelefono(empleado.telefonoempleado.toString())
                 validarIdentidad(empleado.dniempleado.toString())
-                validarContraseñas(empleado.claveusuario)
                 validarLongitudMaxima(empleado)
                 return empleadoRepository!!.save(empleado)
             }catch(e: java.lang.Exception){
