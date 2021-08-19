@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface PrecioHistoricoRepository:JpaRepository<PrecioHistorico,Long> {
-    fun findByidpreciohistorico(idpreciohistorico:Long): Optional<PrecioHistorico>
+    fun findByidservicio(idservicio:Long): Optional<PrecioHistorico>
 }

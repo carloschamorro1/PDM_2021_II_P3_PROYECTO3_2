@@ -38,6 +38,17 @@ class PrecioHistoricoRestController {
         }
     }
 
+    @GetMapping("/idservicio/{idservicio}")
+    fun loadByIdServicio(@PathVariable("idservicio") idServicio:Long):ResponseEntity<PrecioHistorico>{
+        return try {
+            ResponseEntity(precioHistoricoBusiness!!.getPrecioHistoricobyidservicio(idServicio), HttpStatus.OK)
+        }catch (e:BusinessException){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }catch (e:BusinessException){
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
     @PostMapping("/addpreciohistorico")
     fun insert(@RequestBody preciohistorico: PrecioHistorico):ResponseEntity<Any>{
         return try{

@@ -8,4 +8,5 @@ interface IPrecioHistoricoBusiness {
     fun savePrecioHistorico(preciohistorico: PrecioHistorico): PrecioHistorico
     fun removePrecioHistorico(idpreciohistorico:Long)
     fun updatePrecioHistorico(preciohistorico: PrecioHistorico): PrecioHistorico
+    fun getPrecioHistoricobyidservicio(idservicio:Long):PrecioHistorico
 }

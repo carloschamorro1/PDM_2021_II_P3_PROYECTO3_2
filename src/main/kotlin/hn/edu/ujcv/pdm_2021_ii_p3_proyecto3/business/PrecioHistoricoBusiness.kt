@@ -79,6 +79,20 @@ class PrecioHistoricoBusiness:IPrecioHistoricoBusiness {
     }
 
     @Throws(BusinessException::class, NotFoundException::class)
+    override fun getPrecioHistoricobyidservicio(idservicio: Long): PrecioHistorico {
+        val opt:Optional<PrecioHistorico>
+        try {
+            opt = precioHistoricoRepository!!.findByidservicio(idservicio)
+        }catch (e: java.lang.Exception){
+            throw BusinessException(e.message)
+        }
+        if (!opt.isPresent){
+            throw NotFoundException("No se encontro el id servicio $idservicio")
+        }
+        return opt.get()
+    }
+
+    @Throws(BusinessException::class, NotFoundException::class)
     override fun updatePrecioHistorico(preciohistorico: PrecioHistorico): PrecioHistorico {
         val opt: Optional<PrecioHistorico>
         try{
