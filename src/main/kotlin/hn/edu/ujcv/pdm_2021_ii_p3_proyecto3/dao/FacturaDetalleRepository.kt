@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
 interface FacturaDetalleRepository:JpaRepository<FacturaDetalle,Long> {
-    fun findByidfactura(idfactura:Long): Optional<FacturaDetalle>
+
+    fun findByidfactura(idfactura: Long): Optional<List<FacturaDetalle>>
+
+    fun deleteByidfactura(idfactura:Long)
 
 }

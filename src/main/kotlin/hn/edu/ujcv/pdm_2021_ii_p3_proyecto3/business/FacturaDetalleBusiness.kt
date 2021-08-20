@@ -49,19 +49,19 @@ class FacturaDetalleBusiness:IFacturaDetalleBusiness {
         }
     }
     @Throws(BusinessException::class, NotFoundException::class)
-    override fun removeFacturaDetalle(iddetalle: Long) {
-        val opt:Optional<FacturaDetalle>
+    override fun removeFacturaDetalle(idfactura: Long) {
+        val opt:Optional<List<FacturaDetalle>>
         try{
-            opt = facturaDetalleRepository!!.findById(iddetalle)
+            opt = facturaDetalleRepository!!.findByidfactura(idfactura)
         }catch(e:Exception){
             throw BusinessException(e.message)
         }
         if(!opt.isPresent){
-            throw NotFoundException("No se encontro el id del detalle de la factura $iddetalle")
+            throw NotFoundException("No se encontro el id del detalle de la factura $idfactura")
         }
         else{
             try{
-                facturaDetalleRepository!!.deleteById(iddetalle)
+                facturaDetalleRepository!!.deleteByidfactura(idfactura)
             }catch (e: java.lang.Exception){
                 throw BusinessException(e.message)
             }
