@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name="cai")
-class CAI (val cai:String = "", val rangoinicial:String = "", val rangofinal:String = "", val fechalimite: Date)
+class CAI (val cai:String = "", val rangoinicial:String = "", val rangofinal:String = "", val fechalimite: String)
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
